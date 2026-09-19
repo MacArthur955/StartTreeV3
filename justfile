@@ -10,11 +10,11 @@ style:
 build: style
     @rm -rf dist
     @mkdir -p dist
-    @cp index.html dist/index.html
-    @cp -R html styles themes dist/
+    @cp app/index.html dist/index.html
+    @cp -R app/pages app/styles app/themes dist/
     @./node_modules/.bin/tsc
-    @mkdir -p dist/js/views/tree
-    @cp js/views/tree/exampleConfig.json dist/js/views/tree/exampleConfig.json
+    @mkdir -p dist/src/views/tree
+    @cp app/src/views/tree/exampleConfig.json dist/src/views/tree/exampleConfig.json
     @touch dist/.nojekyll
 
 # Build and serve the site at http://localhost:8000/.
