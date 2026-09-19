@@ -6,13 +6,11 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const treeConfig = (await decodeConfig(urlParams.get("t"))) ?? {
   bmc: [],
-  s: {},
   t: {},
 };
 const t = new Tree(treeConfig);
 document.body.classList.add("view-mode");
 document.body.appendChild(t.html());
-t.searchBar.formInput.tabIndex = -1;
 
 const linkColumns = t.bookmarkColumns.map((column) =>
   column.bookmarkCategories.flatMap((category) =>

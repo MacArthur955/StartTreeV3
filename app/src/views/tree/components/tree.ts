@@ -1,5 +1,4 @@
 import ThemeChanger from "../themechanger/theme-changer.js";
-import SearchBar from "./searchBar.js";
 import TreeColumn from "./treeColumn.js";
 import type { CategoryConfig, TreeConfig } from "./treeTypes.js";
 
@@ -11,7 +10,6 @@ export default class Tree {
   bookmarkColumns: TreeColumn[];
   bookmarkRow!: HTMLDivElement;
   root!: HTMLDivElement;
-  searchBar: SearchBar;
   themeChanger: ThemeChanger;
   titlePrompt!: HTMLDivElement;
   version: string;
@@ -21,17 +19,12 @@ export default class Tree {
 
     this.bookmarkColumns = this.initBookmarkColumns(config.bmc);
     this.themeChanger = this.initThemeChanger(config.t);
-    this.searchBar = this.initSearchBar(config.s);
   }
 
   // ~~~~~~~~ initialization methods ~~~~~~~ //
 
   initBookmarkColumns(config: CategoryConfig[][]) {
     return config.map((column) => new TreeColumn(column));
-  }
-
-  initSearchBar(config: TreeConfig["s"]) {
-    return new SearchBar(config);
   }
 
   initThemeChanger(config: TreeConfig["t"]) {
@@ -52,8 +45,6 @@ export default class Tree {
 
     this.bookmarkRow = this.bookmarkRowHtml();
     this.root.appendChild(this.bookmarkRow);
-
-    this.root.appendChild(this.searchBar.html());
 
     return this.root;
   }
@@ -88,7 +79,6 @@ export default class Tree {
 
   export() {
     return {
-      s: this.searchBar.export(),
       v: this.version,
       bmc: this.bookmarkColumns.map((column) => column.export()),
       t: this.themeChanger.export(),

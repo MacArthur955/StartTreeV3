@@ -22,8 +22,7 @@
 /* ~~~~~~~~~~~~~ hover interactions ~~~~~~~~~~~~ */
 
 .bookmark-link-edit-button,
-.category-name-edit-button,
-.search-bar-edit-button {
+.category-name-edit-button {
   visibility: hidden;
   justify-content: left;
 }
@@ -31,14 +30,6 @@
 .bookmark-link:hover ~ .bookmark-link-edit-button,
 .category-title:hover ~ .category-name-edit-button {
   visibility: visible;
-}
-
-.search-bar-title > .text-content:hover ~ .button {
-  visibility: visible;
-}
-
-.search-bar-title {
-  cursor: pointer;
 }
 
 .dropzone > a,
@@ -173,8 +164,7 @@
 }
 
 .category,
-.bookmark,
-.search-bar-title {
+.bookmark {
   animation: scale-animate 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -292,10 +282,6 @@ body {
 
 .add-bookmark-button .filling {
   fill: var(--color6);
-}
-
-.search-bar-edit-button {
-  display: inline;
 }
 
 /* ~~~~~~~~~~~~ tooltip window ~~~~~~~~~~~ */
@@ -524,10 +510,6 @@ a:hover {
 }
 
 /* ~~~~~~~~~~~~ theme changer ~~~~~~~~~~~~ */
-
-form h1 {
-  padding-left: 0.125rem;
-}
 
 input {
   font-family: var(--font);

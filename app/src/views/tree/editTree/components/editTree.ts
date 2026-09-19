@@ -3,7 +3,6 @@ import Tree from "../../components/tree.js";
 import type { CategoryConfig, TreeConfig } from "../../components/treeTypes.js";
 import ThemeChanger from "../../themechanger/theme-changer.js";
 import type TreeUpdateEvent from "../events/treeUpdateEvent.js";
-import EditSearchBar from "./editSearchBar.js";
 import EditTreeColumn from "./editTreeColumn.js";
 
 // ====================================================== //
@@ -21,10 +20,6 @@ export default class EditTree extends Tree {
     return config.map(
       (column) => new EditTreeColumn(column, this.onColumnUpdate.bind(this)),
     );
-  }
-
-  override initSearchBar(config: TreeConfig["s"]) {
-    return new EditSearchBar(config);
   }
 
   override initThemeChanger(config: TreeConfig["t"]) {
