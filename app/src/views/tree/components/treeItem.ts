@@ -4,14 +4,14 @@
 //
 
 export default class TreeItem {
-  a: any;
-  id: any;
-  name: any;
-  root: any;
-  url: any;
+  a!: HTMLAnchorElement;
+  id: string;
+  name: string;
+  root!: HTMLLIElement;
+  url: string;
 
   static count = 0;
-  constructor(bookmark) {
+  constructor(bookmark: { n: string; u: string }) {
     TreeItem.count++;
     this.id = `bookmark-${TreeItem.count}`;
     this.name = bookmark.n;
@@ -45,7 +45,7 @@ export default class TreeItem {
     return root;
   }
 
-  generateLinkText(url) {
+  generateLinkText(url: string) {
     // if the url has a protocol, return the url, else append a protocol
     if (url.includes("//")) {
       return url;

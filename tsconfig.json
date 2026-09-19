@@ -7,7 +7,15 @@
     "rootDir": "app/src",
     "outDir": "dist/src",
     "skipLibCheck": true,
-    "noImplicitAny": false,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true,
     "noEmitOnError": true
   },
   "include": ["app/src/**/*.ts"]

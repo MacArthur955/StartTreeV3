@@ -1,8 +1,8 @@
 export default class DragOptions {
-  data: any;
-  validDropzones: any;
+  data: string;
+  validDropzones: string[];
 
-  constructor({ data, validDropzones }) {
+  constructor({ data, validDropzones }: { data?: string; validDropzones?: string[] }) {
     this.data = data ?? "";
     this.validDropzones = validDropzones ?? []; // classes that this draggable can be dropped on
   }

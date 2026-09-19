@@ -23,17 +23,17 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 //
-let stringify = function stringify(v) {
-  function encode(s) {
+let stringify = function stringify(v: unknown): string | undefined {
+  function encode(s: string): string {
     return !/[^\w-.]/.test(s)
       ? s
-      : s.replace(/[^\w-.]/g, function (ch) {
+      : s.replace(/[^\w-.]/g, function (ch: string) {
           if (ch === "$") return "!";
-          ch = ch.charCodeAt(0);
+          const code = ch.charCodeAt(0);
           // thanks to Douglas Crockford for the negative slice trick
-          return ch < 0x100
-            ? "*" + ("00" + ch.toString(16)).slice(-2)
-            : "**" + ("0000" + ch.toString(16)).slice(-4);
+          return code < 0x100
+            ? "*" + ("00" + code.toString(16)).slice(-2)
+            : "**" + ("0000" + code.toString(16)).slice(-4);
         });
   }
 
@@ -59,8 +59,8 @@ let stringify = function stringify(v) {
         return "~(" + (tmpAry.join("") || "~") + ")";
       } else {
         for (var key in v) {
-          if (v.hasOwnProperty(key)) {
-            var val = stringify(v[key]);
+          if (Object.prototype.hasOwnProperty.call(v, key)) {
+            var val = stringify((v as Record<string, unknown>)[key]);
 
             // skip undefined and functions
             if (val) {
@@ -83,13 +83,13 @@ var reserved = {
   null: null,
 };
 
-let parse = function (s) {
-  if (!s) return s;
-  s = s.replace(/%(25)*27/g, "'");
+let parse = function (input: string | null): unknown {
+  if (!input) return input;
+  let s = input.replace(/%(25)*27/g, "'");
   var i = 0,
     len = s.length;
 
-  function eat(expected) {
+  function eat(expected: string) {
     if (s.charAt(i) !== expected)
       throw new Error(
         "bad JSURL syntax: expected " + expected + ", got " + (s && s.charAt(i))
@@ -123,7 +123,7 @@ let parse = function (s) {
     return r + s.substring(beg, i);
   }
 
-  return (function parseOne() {
+  return (function parseOne(): unknown {
     var result, ch, beg;
     eat("~");
     switch ((ch = s.charAt(i))) {
@@ -138,11 +138,11 @@ let parse = function (s) {
             } while (s.charAt(i) === "~");
           }
         } else {
-          result = {};
+          result = {} as Record<string, unknown>;
           if (s.charAt(i) !== ")") {
             do {
               var key = decode();
-              result[key] = parseOne();
+              (result as Record<string, unknown>)[key] = parseOne();
             } while (s.charAt(i) === "~" && ++i);
           }
         }
@@ -159,7 +159,7 @@ let parse = function (s) {
         if (/[\d\-]/.test(ch)) {
           result = parseFloat(sub);
         } else {
-          result = reserved[sub];
+          result = reserved[sub as keyof typeof reserved];
           if (typeof result === "undefined")
             throw new Error("bad value keyword: " + sub);
         }

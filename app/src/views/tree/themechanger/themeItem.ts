@@ -3,13 +3,13 @@
 // ====================================================== //
 
 export default class ThemeItem {
-  name: any;
+  name: string;
 
   static themeCssLink = document.querySelector(
     "link[href='./styles/colors.css']"
   );
 
-  constructor(themeName) {
+  constructor(themeName: string) {
     this.name = themeName;
   }
 
