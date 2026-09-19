@@ -1,9 +1,15 @@
-import { stringify } from "../helper/jsurl.js";
+import { encodeConfig } from "../helper/urlConfig.js";
 
-const exampleData = await fetch("./src/views/tree/exampleConfig.json").then(
-  (response) => response.json(),
-);
-
-const jsonStringified = stringify(exampleData);
-
-document.location.replace(`./pages/edit.html?t=${jsonStringified}`);
+if (new URLSearchParams(window.location.search).has("t")) {
+  if (new URLSearchParams(window.location.search).get("e") === "1") {
+    await import("./edit.js");
+  } else {
+    await import("./view.js");
+  }
+} else {
+  const exampleData = await fetch("./src/views/tree/exampleConfig.json").then(
+    (response) => response.json(),
+  );
+  const encoded = await encodeConfig(exampleData);
+  document.location.replace(`./?t=${encoded}&e=1`);
+}

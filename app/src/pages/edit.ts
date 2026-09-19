@@ -1,11 +1,10 @@
-import { parse, stringify } from "../helper/jsurl.js";
+import { decodeConfig, encodeConfig } from "../helper/urlConfig.js";
 import Button from "../views/other/button.js";
-import type { TreeConfig } from "../views/tree/components/treeTypes.js";
 import EditTree from "../views/tree/editTree/components/editTree.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const treeConfig = (parse(urlParams.get("t")) as TreeConfig | null) ?? {
+const treeConfig = (await decodeConfig(urlParams.get("t"))) ?? {
   bmc: [],
   s: {},
   t: {},
@@ -15,12 +14,13 @@ const REPO_URL = "https://github.com/AlexW00/StartTreeV2";
 const t = new EditTree(treeConfig);
 document.body.appendChild(t.html());
 
-const getExportUrl = () => {
-  const host = `${window.location.protocol}//${location.host}`,
-    path = location.pathname,
-    affix = "?t=",
-    data = stringify(t.export());
-  return `${host}${path.replace("edit.html", "view.html")}${affix}${data}`;
+const getExportUrl = async () => {
+  const url = window.location.pathname.endsWith("/pages/edit.html")
+    ? new URL("../", window.location.href)
+    : new URL(window.location.href);
+  url.searchParams.set("t", await encodeConfig(t.export()));
+  url.searchParams.delete("e");
+  return url.href;
 };
 
 const cancelButtonHtml = () => {
@@ -41,9 +41,10 @@ const exportButtonHtml = () => {
   exportButton.classList.add("modeToggle", "right", "top");
   exportButton.setAttribute("data-tooltip", "Copy & Go to the new URL");
 
-  exportButton.addEventListener("click", () => {
-    navigator.clipboard.writeText(getExportUrl());
-    window.location.href = getExportUrl();
+  exportButton.addEventListener("click", async () => {
+    const url = await getExportUrl();
+    await navigator.clipboard.writeText(url);
+    window.location.href = url;
   });
   return exportButton;
 };

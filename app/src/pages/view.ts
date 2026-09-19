@@ -1,17 +1,14 @@
-import { parse } from "../helper/jsurl.js";
+import { decodeConfig } from "../helper/urlConfig.js";
 import Button from "../views/other/button.js";
 import Tree from "../views/tree/components/tree.js";
-import type { TreeConfig } from "../views/tree/components/treeTypes.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const treeConfig = (parse(urlParams.get("t")) as TreeConfig | null) ?? {
+const treeConfig = (await decodeConfig(urlParams.get("t"))) ?? {
   bmc: [],
   s: {},
   t: {},
 };
-const editModeHref = "./edit.html";
-
 const t = new Tree(treeConfig);
 document.body.appendChild(t.html());
 
@@ -20,7 +17,12 @@ const editModeButtonHtml = () => {
   editModeButton.classList.add("modeToggle", "right");
 
   editModeButton.onclick = () => {
-    window.location.href = editModeHref + queryString;
+    const editUrl = window.location.pathname.endsWith("/pages/view.html")
+      ? new URL("../", window.location.href)
+      : new URL(window.location.href);
+    editUrl.search = queryString;
+    editUrl.searchParams.set("e", "1");
+    window.location.href = editUrl.href;
   };
   return editModeButton;
 };
