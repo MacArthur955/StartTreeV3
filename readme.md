@@ -10,7 +10,7 @@ StartTreeV2 is a custom start page for your browser, also it's:
 - 🔒 **Private**: no database, saved via url
 - ⚡ **Lightweight**: zero dependencies
 
-→ Start [HERE](https://alexw00.github.io/StartTreeV2/)
+→ Start [HERE](https://macarthur955.github.io/StartTreeV3/)
 
 ## Guides
 
