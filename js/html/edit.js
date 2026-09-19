@@ -15,7 +15,7 @@ const getExportUrl = () => {
     path = location.pathname,
     affix = "?t=",
     data = stringify(t.export());
-  return host + path.replace("e.html", "v.html") + affix + data;
+  return host + path.replace("edit.html", "view.html") + affix + data;
 };
 
 const cancelButtonHtml = () => {

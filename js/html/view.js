@@ -5,7 +5,7 @@ import Button from "../views/other/button.js";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const treeConfig = parse(urlParams.get("t")) || {};
-const editModeHref = "./e.html";
+const editModeHref = "./edit.html";
 
 const t = new Tree(treeConfig, false);
 document.body.appendChild(t.html());
