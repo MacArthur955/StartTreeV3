@@ -14,6 +14,12 @@ StartTreeV2 is a custom start page for your browser, also it's:
 
 ## Guides
 
+### Keyboard navigation (view mode)
+
+No link is selected when the page opens. Press any arrow key, `h`, `j`, `k`, `l`, or `Tab` to select the first link in the top left. Then use `↑`/`k` and `↓`/`j` to move between links in a column, or `←`/`h` and `→`/`l` to move between columns. Press `Enter` to open the selected link.
+
+Movement stops at the edges. When moving into a shorter column, selection moves to its last link; the next move starts from that row. The search field is not part of keyboard navigation.
+
 <details>
   <summary>✏️ Configuring</summary>
   

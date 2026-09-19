@@ -518,6 +518,11 @@ a:hover {
   */
 }
 
+.view-mode a:focus {
+  outline: 2px solid var(--cursor);
+  outline-offset: 2px;
+}
+
 /* ~~~~~~~~~~~~ theme changer ~~~~~~~~~~~~ */
 
 form h1 {

@@ -81,7 +81,6 @@ export default class SearchBar {
     const searchInput = document.createElement("input");
     searchInput.setAttribute("type", "text");
     searchInput.setAttribute("name", "q");
-    searchInput.setAttribute("autofocus", "autofocus");
     return searchInput;
   }
 
