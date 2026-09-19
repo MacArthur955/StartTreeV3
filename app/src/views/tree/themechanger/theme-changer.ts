@@ -42,7 +42,7 @@ export default class ThemeChanger {
   ];
 
   themeCssLink = document.querySelector<HTMLLinkElement>(
-    "link[href='../styles/colors.css']",
+    'link[rel="stylesheet"][href$="/styles/colors.css"]',
   );
 
   constructor(config: { nr?: number }) {
@@ -53,7 +53,10 @@ export default class ThemeChanger {
   }
 
   changeTheme(nameTheme: string) {
-    this.themeCssLink!.href = `../themes/${nameTheme}.css`;
+    this.themeCssLink!.href = new URL(
+      `../themes/${nameTheme}.css`,
+      this.themeCssLink!.href,
+    ).href;
   }
 
   html() {
