@@ -1,15 +1,13 @@
 # StartTreeV3
 
+<img width="800" height="450" alt="output" src="https://github.com/user-attachments/assets/3ffbce64-1fcf-40f1-9ff0-1a54a8222732" />
+
 ## Installation
 
 No installation. Just click [HERE](https://macarthur955.github.io/StartTreeV3/). \
 I'm sure you'll manage that.
 
 ## Guides
-
-### Keyboard navigation (view mode)
-
-Use the arrow keys, `h`, `j`, `k`, `l`, or `Tab` to navigate between links.
 
 ### ✏️ Configuring
 
@@ -30,6 +28,10 @@ Drag and drop elements you would like to move
 ### Saving your StartTree
 
 Click on the top right check button to **copy** and **go** to your new URL.
+
+### Keyboard navigation (view mode)
+
+Use the arrow keys, `h`, `j`, `k`, `l`, or `Tab` to navigate between links.
 
 ### ⚙ Setting as default
 
