@@ -2,6 +2,10 @@
 default:
     @just --list
 
+# Check required tools and install project dependencies.
+init:
+    @sh scripts/init.sh
+
 # Check formatting and lint rules with Biome.
 style:
     @./node_modules/.bin/biome check .
