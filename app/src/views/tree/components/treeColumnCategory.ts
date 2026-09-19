@@ -5,15 +5,15 @@
 import TreeItem from "./treeItem.js";
 
 export default class TreeColumnCategory {
-  bookmarkList: any;
-  categoryTitle: any;
-  id: any;
-  name: any;
-  root: any;
-  treeItems: any;
+  bookmarkList!: HTMLUListElement;
+  categoryTitle!: HTMLHeadingElement;
+  id: string;
+  name: string;
+  root!: HTMLLIElement;
+  treeItems: TreeItem[];
 
   static count = 0;
-  constructor(bookmarkCategory) {
+  constructor(bookmarkCategory: { cn: string; b: { n: string; u: string }[] }) {
     TreeColumnCategory.count++;
     this.id = `category-${TreeColumnCategory.count}`;
     this.name = bookmarkCategory.cn;
@@ -65,7 +65,7 @@ export default class TreeColumnCategory {
 
   // ~~~~~~~~~~~~ class functionality ~~~~~~~~~~~~ //
 
-  initTreeItems(bookmarkConfig) {
+  initTreeItems(bookmarkConfig: { n: string; u: string }[]) {
     return bookmarkConfig.map((bookmark) => {
       return new TreeItem(bookmark);
     });

@@ -10,13 +10,13 @@ import Button from "../../../other/button.js";
 
 export default class EditSearchBar extends SearchBar {
 
-  constructor(config) {
+  constructor(config: { n?: string; u?: string }) {
     super(config);
   }
 
   // ~~~~~~~ override parent methods ~~~~~~~ //
 
-  renderHtml() {
+  override renderHtml() {
     this.root = this.rootHtml();
 
     this.sectionName = this.#sectionNameHtml();
@@ -57,8 +57,8 @@ export default class EditSearchBar extends SearchBar {
         }),
         (editorFinishEvent) => {
           if (editorFinishEvent.type === "save") {
-            this.searchEngineUrl = editorFinishEvent.editResult.link;
-            this.searchEngineNameShort = editorFinishEvent.editResult.text;
+            this.searchEngineUrl = editorFinishEvent.editResult!.link;
+            this.searchEngineNameShort = editorFinishEvent.editResult!.text;
             this.root.prepend(this.#sectionNameHtml());
           } else {
             this.root.prepend(this.#sectionNameHtml());

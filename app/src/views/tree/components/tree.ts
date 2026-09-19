@@ -1,3 +1,4 @@
+import type { TreeConfig, CategoryConfig } from "./treeTypes.js";
 import ThemeChanger from "../themechanger/theme-changer.js";
 import SearchBar from "./searchBar.js";
 import TreeColumn from "./treeColumn.js";
@@ -7,15 +8,15 @@ import TreeColumn from "./treeColumn.js";
 // ====================================================== //
 
 export default class Tree {
-  bookmarkColumns: any;
-  bookmarkRow: any;
-  root: any;
-  searchBar: any;
-  themeChanger: any;
-  titlePrompt: any;
-  version: any;
+  bookmarkColumns: TreeColumn[];
+  bookmarkRow!: HTMLDivElement;
+  root!: HTMLDivElement;
+  searchBar: SearchBar;
+  themeChanger: ThemeChanger;
+  titlePrompt!: HTMLDivElement;
+  version: string;
 
-  constructor(config) {
+  constructor(config: TreeConfig) {
     this.version = config.v || "0.0";
 
     this.bookmarkColumns = this.initBookmarkColumns(config.bmc);
@@ -25,15 +26,15 @@ export default class Tree {
 
   // ~~~~~~~~ initialization methods ~~~~~~~ //
 
-  initBookmarkColumns(config) {
+  initBookmarkColumns(config: CategoryConfig[][]) {
     return config.map((column) => new TreeColumn(column));
   }
 
-  initSearchBar(config) {
+  initSearchBar(config: TreeConfig["s"]) {
     return new SearchBar(config);
   }
 
-  initThemeChanger(config) {
+  initThemeChanger(config: TreeConfig["t"]) {
     return new ThemeChanger(config);
   }
 

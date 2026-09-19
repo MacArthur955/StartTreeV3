@@ -3,28 +3,30 @@
 // ====================================================== //
 
 import EditorFinishEvent from "../events/editorFinishEvent.js";
+import EditorOptions from "../helperObjects/editorOptions.js";
+import EditorTarget from "../helperObjects/editorTarget.js";
 import Toolbar from "./toolbar.js";
 export default class Editor {
-  allowTextEdit: any;
-  buttons: any;
-  cb: any;
-  editorTarget: any;
-  index: any;
-  isClosed: any;
-  link: any;
-  linkEditorIsOpen: any;
-  nodeType: any;
-  parentNode: any;
-  root: any;
-  secondRow: any;
-  text: any;
-  toolbar: any;
+  allowTextEdit: boolean;
+  buttons: string[];
+  cb: (event: EditorFinishEvent) => void;
+  editorTarget: EditorTarget;
+  index = 0;
+  isClosed = false;
+  link: string;
+  linkEditorIsOpen: boolean;
+  nodeType: string;
+  parentNode: HTMLElement;
+  root!: HTMLElement;
+  secondRow?: HTMLDivElement;
+  text: string;
+  toolbar!: Toolbar;
 
-  static openInstance = null;
+  static openInstance: Editor | null = null;
 
   // ~~~~~~~~~ Initialization functions ~~~~~~~~~ //
 
-  constructor(parentNode, editorTarget, editorOptions, cb) {
+  constructor(parentNode: HTMLElement, editorTarget: EditorTarget, editorOptions: EditorOptions, cb: (event: EditorFinishEvent) => void) {
     this.cb = cb; // callback function
     this.buttons = editorOptions.buttons; // ["link", "delete", "cancel"];
     this.parentNode = parentNode; // the parent node of the edit target
@@ -49,13 +51,13 @@ export default class Editor {
     this.root = this.html();
     this.parentNode.replaceChild(
       this.root,
-      this.parentNode.querySelector("#" + this.editorTarget.id)
+      this.parentNode.querySelector("#" + this.editorTarget.id)!
     );
 
     const children = this.parentNode.children;
     // loop over all
     for (let i = 0; i < children.length; i++) {
-      if (children[i].classList.contains("editor")) {
+      if (children[i]!.classList.contains("editor")) {
         this.index = i;
         break;
       }
@@ -87,7 +89,7 @@ export default class Editor {
 
   #setMouseDownListener = () => {
     document.addEventListener("mousedown", (e) => {
-      if (this.root.contains(e.target)) return;
+      if (e.target instanceof Node && this.root.contains(e.target)) return;
       this.save();
     });
   };
@@ -108,7 +110,7 @@ export default class Editor {
       this.link = input.value;
       if (e.keyCode === 13 && input === document.activeElement) {
         e.preventDefault();
-        this.save(this.root.parentNode);
+        this.save(this.root.parentNode ?? undefined);
       }
     });
 
@@ -117,7 +119,7 @@ export default class Editor {
   };
 
   // creates an input field
-  #createInputField(li) {
+  #createInputField(li: HTMLElement) {
     // create input field
     const input = document.createElement("input");
 
@@ -126,7 +128,7 @@ export default class Editor {
     input.addEventListener("keyup", (e) => {
       this.text = input.value;
       if (e.keyCode === 13 && input === document.activeElement) {
-        this.save(li.parentNode);
+        this.save(li.parentNode ?? undefined);
       }
     });
     if (!this.allowTextEdit) input.disabled = true;
@@ -134,7 +136,7 @@ export default class Editor {
   }
 
   // creates the toolbar html
-  #createToolbar(li) {
+  #createToolbar(li: HTMLElement) {
     this.toolbar = new Toolbar(this.buttons, (buttonName) => {
       console.log(buttonName);
       if (buttonName === "cancel") {
@@ -148,7 +150,7 @@ export default class Editor {
     return this.toolbar.html();
   }
 
-  #toggleLinkInput(li) {
+  #toggleLinkInput(li: HTMLElement) {
     if (this.linkEditorIsOpen) {
       this.#closeLinkInput(li);
       this.toolbar.linkButton.classList.remove("active");
@@ -158,7 +160,7 @@ export default class Editor {
     }
   }
 
-  #openLinkInput(li) {
+  #openLinkInput(li: HTMLElement) {
     li.appendChild(this.#secondRowHtml());
   }
 
@@ -200,7 +202,7 @@ export default class Editor {
   #closeLinkInput(_li?: Node): Promise<void> {
     if (!this.linkEditorIsOpen) return Promise.resolve();
     return new Promise((resolve) => {
-      const linkInput = this.root.querySelector(".secondRow");
+      const linkInput = this.root.querySelector<HTMLElement>(".secondRow")!;
       linkInput.classList.add("slide-down-animate-out");
       linkInput.onanimationend = () => {
         this.linkEditorIsOpen = false;

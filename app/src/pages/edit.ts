@@ -1,10 +1,11 @@
+import type { TreeConfig } from "../views/tree/components/treeTypes.js";
 import EditTree from "../views/tree/editTree/components/editTree.js";
 import { parse, stringify } from "../helper/jsurl.js";
 import Button from "../views/other/button.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const treeConfig = parse(urlParams.get("t")) || {};
+const treeConfig = (parse(urlParams.get("t")) as TreeConfig | null) ?? { bmc: [], s: {}, t: {} };
 const REPO_URL = "https://github.com/AlexW00/StartTreeV2";
 
 const t = new EditTree(treeConfig);

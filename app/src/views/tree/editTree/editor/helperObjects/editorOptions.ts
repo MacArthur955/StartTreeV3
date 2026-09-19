@@ -3,10 +3,10 @@
 // ====================================================== //
 
 export default class EditorOptions {
-  allowTextEdit: any;
-  buttons: any;
-  nodeType: any;
-  openWithLinkInput: any;
+  allowTextEdit: boolean;
+  buttons: string[];
+  nodeType: string;
+  openWithLinkInput: boolean;
 
   constructor({ allowTextEdit, openWithLinkInput, buttons, nodeType }: {
     allowTextEdit?: boolean;

@@ -1,3 +1,3 @@
-export function insertAfter(newNode, existingNode) {
-  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+export function insertAfter(newNode: Node, existingNode: Node) {
+  existingNode.parentNode?.insertBefore(newNode, existingNode.nextSibling);
 }

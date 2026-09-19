@@ -4,7 +4,7 @@
 
 import ThemeItem from "./themeItem.js";
 export default class ThemeChanger {
-  themeNr: any;
+  themeNr: number;
 
   themeChanger = document.createElement("div");
   selectedThemeId = 2;
@@ -43,15 +43,15 @@ export default class ThemeChanger {
 
   themeCssLink = document.querySelector<HTMLLinkElement>("link[href='../styles/colors.css']");
 
-  constructor(config) {
+  constructor(config: { nr?: number }) {
     this.themeNr = config.nr ?? 0;
     this.addListener();
     this.addListenerMouseLeave();
-    this.changeTheme(this.THEMES[this.themeNr]);
+    this.changeTheme(this.THEMES[this.themeNr] ?? this.THEMES[0]!);
   }
 
-  changeTheme(nameTheme) {
-    this.themeCssLink.href = `../themes/${nameTheme}.css`;
+  changeTheme(nameTheme: string) {
+    this.themeCssLink!.href = `../themes/${nameTheme}.css`;
   }
 
   html() {
@@ -75,7 +75,7 @@ export default class ThemeChanger {
     (this.themeChanger.childNodes[this.selectedThemeId] as HTMLElement).id = "selected";
     // Insert selected theme on the top
     this.themeChanger.insertBefore(
-      this.themeChanger.childNodes[this.selectedThemeId],
+      this.themeChanger.childNodes[this.selectedThemeId]!,
       this.themeChanger.firstChild
     );
 
@@ -92,8 +92,8 @@ export default class ThemeChanger {
         this.changeTheme(target.id);
 
         const selectedTheme = document.querySelector("#selected");
-        selectedTheme.removeAttribute("id");
-        target.parentElement.id = "selected";
+        selectedTheme?.removeAttribute("id");
+        target.parentElement!.id = "selected";
       }
     });
   };
@@ -102,7 +102,7 @@ export default class ThemeChanger {
     this.themeChanger.addEventListener("mouseleave", function (event) {
       const selectedTheme = document.querySelector("#selected");
       const target = event.currentTarget as HTMLElement;
-      target.insertBefore(selectedTheme, target.firstChild);
+      if (selectedTheme) target.insertBefore(selectedTheme, target.firstChild);
       target.scrollTop = 0;
     });
   };
