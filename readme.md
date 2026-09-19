@@ -89,8 +89,8 @@ Click on the top right check button to **copy** and **go** to your new URL.
 Install [Node.js 22](https://nodejs.org/en/download) (which includes
 [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)) and
 [just](https://just.systems/man/en/packages.html). These are the only tools
-needed for local development; `npm ci` installs the project's TypeScript
-dependency from `package-lock.json`.
+needed for local development; `npm ci` installs TypeScript and Biome from
+`package-lock.json`.
 
 Run `npm ci` in the project directory before using the commands below.
 
@@ -101,8 +101,8 @@ in `dist/src/` and pages in `dist/pages/`.
 
 | Command | Purpose |
 | --- | --- |
-| `just style` | Check TypeScript types |
-| `just build` | Build the site in `dist/` |
+| `just style` | Check formatting and lint rules with Biome |
+| `just build` | Check TypeScript types and build the site in `dist/` |
 | `just run` | Build and serve locally at `http://localhost:8000/` using Node.js |
 
 Run `just` to see the command list. For GitHub Pages, select **GitHub Actions**

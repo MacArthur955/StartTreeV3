@@ -49,7 +49,7 @@ export default class TreeItem {
     // if the url has a protocol, return the url, else append a protocol
     if (url.includes("//")) {
       return url;
-    } else return "//" + url;
+    } else return `//${url}`;
   }
 
   export() {

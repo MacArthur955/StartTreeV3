@@ -8,7 +8,12 @@ export default class EditorOptions {
   nodeType: string;
   openWithLinkInput: boolean;
 
-  constructor({ allowTextEdit, openWithLinkInput, buttons, nodeType }: {
+  constructor({
+    allowTextEdit,
+    openWithLinkInput,
+    buttons,
+    nodeType,
+  }: {
     allowTextEdit?: boolean;
     openWithLinkInput?: boolean;
     buttons?: string[];

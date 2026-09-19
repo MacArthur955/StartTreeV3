@@ -102,13 +102,13 @@
 }
 
 .link-button.active {
-  animation-fill-mode: forwards !important;
   animation: rotate-forward-90 0.2s;
+  animation-fill-mode: forwards !important;
 }
 
 .link-button {
-  animation-fill-mode: forwards !important;
   animation: rotate-back-90 0.2s;
+  animation-fill-mode: forwards !important;
 }
 
 .cancelExport,
@@ -450,7 +450,6 @@ button:focus {
   white-space: nowrap;
   display: inline;
   justify-items: right;
-  display: inline;
   flex-direction: row;
 }
 

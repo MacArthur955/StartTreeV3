@@ -2,12 +2,12 @@
 default:
     @just --list
 
-# Check TypeScript types without writing files.
+# Check formatting and lint rules with Biome.
 style:
-    @./node_modules/.bin/tsc --noEmit
+    @./node_modules/.bin/biome check .
 
 # Check types and build the static site in dist/.
-build: style
+build:
     @rm -rf dist
     @mkdir -p dist
     @cp app/index.html dist/index.html

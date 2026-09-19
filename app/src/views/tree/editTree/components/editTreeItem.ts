@@ -6,8 +6,8 @@ import DragOptions from "../../../../helper/dragOptions.js";
 import makeDraggable from "../../../../helper/makeDraggable.js";
 import { insertAfter } from "../../../../helper/utils.js";
 import Button from "../../../other/button.js";
-import type { BookmarkConfig } from "../../components/treeTypes.js";
 import TreeItem from "../../components/treeItem.js";
+import type { BookmarkConfig } from "../../components/treeTypes.js";
 import Editor from "../editor/components/editor.js";
 import EditorOptions from "../editor/helperObjects/editorOptions.js";
 import editorTarget from "../editor/helperObjects/editorTarget.js";
@@ -17,7 +17,10 @@ export default class EditTreeItem extends TreeItem {
   editButton!: HTMLDivElement;
   onUpdate: (event: TreeUpdateEvent<EditTreeItem>) => void;
 
-  constructor(bookmark: BookmarkConfig, onUpdate: (event: TreeUpdateEvent<EditTreeItem>) => void) {
+  constructor(
+    bookmark: BookmarkConfig,
+    onUpdate: (event: TreeUpdateEvent<EditTreeItem>) => void,
+  ) {
     super(bookmark);
     this.onUpdate = onUpdate;
   }
@@ -72,10 +75,12 @@ export default class EditTreeItem extends TreeItem {
 
   // valid element is dropped on this element
   #onDrop(event: DragEvent) {
-    const dragItemData = JSON.parse(event.dataTransfer?.getData("text") ?? "{}"),
+    const dragItemData = JSON.parse(
+        event.dataTransfer?.getData("text") ?? "{}",
+      ),
       newEditTreeItem = new EditTreeItem(
         { n: dragItemData.n, u: dragItemData.u },
-        this.onUpdate
+        this.onUpdate,
       );
 
     // insert dragged item after it's dropzone
@@ -85,7 +90,7 @@ export default class EditTreeItem extends TreeItem {
         type: "add",
         updatedObject: this,
         newObject: newEditTreeItem,
-      })
+      }),
     );
   }
 
@@ -110,19 +115,19 @@ export default class EditTreeItem extends TreeItem {
           this.url = editorFinishEvent.editResult!.link ?? "#";
           parentNode.insertBefore(
             this.renderHtml(),
-            parentNode.querySelectorAll("li")[editorFinishEvent.index] ?? null
+            parentNode.querySelectorAll("li")[editorFinishEvent.index] ?? null,
           );
         } else if (editorFinishEvent.type === "cancel") {
           parentNode.insertBefore(
             this.html(),
-            parentNode.querySelectorAll("li")[editorFinishEvent.index] ?? null
+            parentNode.querySelectorAll("li")[editorFinishEvent.index] ?? null,
           );
         } else if (editorFinishEvent.type === "delete") {
           this.onUpdate(
-            new TreeUpdateEvent({ type: "delete", updatedObject: this })
+            new TreeUpdateEvent({ type: "delete", updatedObject: this }),
           );
         }
-      }
+      },
     );
   };
 }

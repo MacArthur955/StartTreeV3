@@ -20,16 +20,16 @@ export default class Button {
     } else if (type === "delete") {
       this.svg = `
         <svg width="${width ?? 24}" class="icon, ${type}" height="${
-        height ?? 24
-      }" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          height ?? 24
+        }" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path class="filling" fill-rule="evenodd" clip-rule="evenodd" d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"/>
         </svg>
       `;
     } else if (type === "cancel") {
       this.svg = `
         <svg width="${width ?? 24}" class="icon, ${type}" height="${
-        height ?? 24
-      }" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          height ?? 24
+        }" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path class="filling" fill-rule="evenodd" clip-rule="evenodd" d="M12 0C5.364 0 0 5.364 0 12C0 18.636 5.364 24 12 24C18.636 24 24 18.636 24 12C24 5.364 18.636 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.70799 6.708 2.39999 12 2.39999C17.292 2.39999 21.6 6.70799 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12 10.308L16.308 6L18 7.692L13.692 12L18 16.308L16.308 18L12 13.692L7.692 18L6 16.308L10.308 12L6 7.692L7.692 6L12 10.308Z" fill="#2F4B34"/>
         </svg> 
         `;
@@ -73,8 +73,8 @@ export default class Button {
     } else if (type === "help") {
       this.svg = `
         <svg class="icon, ${type}" width="${width ?? 24}" height="${
-        height ?? 24
-      }" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          height ?? 24
+        }" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="help_outline_24px">
             <path class="filling"  id="icon/action/help_outline_24px" fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 6.48 6.47998 2 12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.47998 22 2 17.52 2 12ZM13 16V18H11V16H13ZM12 20C7.58997 20 4 16.41 4 12C4 7.59 7.58997 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM8 10C8 7.79 9.79004 6 12 6C14.21 6 16 7.79 16 10C16 11.2829 15.21 11.9733 14.4408 12.6455C13.7111 13.2833 13 13.9046 13 15H11C11 13.1787 11.9421 12.4566 12.7704 11.8217C13.4203 11.3236 14 10.8792 14 10C14 8.9 13.1 8 12 8C10.9 8 10 8.9 10 10H8Z"/>
           </g>
@@ -95,7 +95,7 @@ export default class Button {
     const button = document.createElement("div");
 
     button.classList.add("button");
-    button.classList.add(this.type + "-button");
+    button.classList.add(`${this.type}-button`);
     button.innerHTML = this.svg;
     return button;
   };
