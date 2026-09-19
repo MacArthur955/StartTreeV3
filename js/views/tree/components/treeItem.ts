@@ -4,6 +4,12 @@
 //
 
 export default class TreeItem {
+  a: any;
+  id: any;
+  name: any;
+  root: any;
+  url: any;
+
   static count = 0;
   constructor(bookmark) {
     TreeItem.count++;

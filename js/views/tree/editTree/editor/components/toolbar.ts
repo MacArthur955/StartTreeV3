@@ -4,6 +4,12 @@
 
 import Button from "../../../../other/button.js";
 export default class Toolbar {
+  buttons: any;
+  cancelButton: any;
+  cb: any;
+  deleteButton: any;
+  linkButton: any;
+
   constructor(buttons, cb) {
     this.cb = cb; // callback function
     this.buttons = buttons; // ["link", "delete", "cancel"];

@@ -5,6 +5,13 @@ import TreeColumnCategory from "./treeColumnCategory.js";
 // ====================================================== //
 
 export default class TreeColumn {
+  bookmarkCategories: any;
+  categoryList: any;
+  columnTitle: any;
+  id: any;
+  root: any;
+  tree: any;
+
   static count = 0;
   constructor(bookmarkColumn) {
     TreeColumn.count++;

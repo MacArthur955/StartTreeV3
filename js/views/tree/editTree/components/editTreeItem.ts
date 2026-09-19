@@ -13,6 +13,9 @@ import editorTarget from "../editor/helperObjects/editorTarget.js";
 import TreeUpdateEvent from "../events/treeUpdateEvent.js";
 
 export default class EditTreeItem extends TreeItem {
+  editButton: any;
+  onUpdate: any;
+
   constructor(bookmark, onUpdate) {
     super(bookmark);
     this.onUpdate = onUpdate;
@@ -51,8 +54,7 @@ export default class EditTreeItem extends TreeItem {
   }
 
   #makeDraggable = () => {
-    const dragOptionsData = this.export();
-    dragOptionsData.classList = ["bookmark"];
+    const dragOptionsData = { ...this.export(), classList: ["bookmark"] };
     const dragOptions = new DragOptions({
       data: JSON.stringify(dragOptionsData),
       validDropzones: ["bookmark"],

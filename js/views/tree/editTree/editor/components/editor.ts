@@ -5,6 +5,21 @@
 import EditorFinishEvent from "../events/editorFinishEvent.js";
 import Toolbar from "./toolbar.js";
 export default class Editor {
+  allowTextEdit: any;
+  buttons: any;
+  cb: any;
+  editorTarget: any;
+  index: any;
+  isClosed: any;
+  link: any;
+  linkEditorIsOpen: any;
+  nodeType: any;
+  parentNode: any;
+  root: any;
+  secondRow: any;
+  text: any;
+  toolbar: any;
+
   static openInstance = null;
 
   // ~~~~~~~~~ Initialization functions ~~~~~~~~~ //
@@ -149,7 +164,7 @@ export default class Editor {
 
   // ~~~~~~~ Toolbar event callbacks ~~~~~~ //
 
-  save() {
+  save(_parentNode?: Node) {
     if (this.isClosed) return;
     this.#remove();
     this.cb(
@@ -182,7 +197,7 @@ export default class Editor {
     });
   }
 
-  #closeLinkInput() {
+  #closeLinkInput(_li?: Node): Promise<void> {
     if (!this.linkEditorIsOpen) return Promise.resolve();
     return new Promise((resolve) => {
       const linkInput = this.root.querySelector(".secondRow");

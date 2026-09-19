@@ -4,6 +4,8 @@
 
 import ThemeItem from "./themeItem.js";
 export default class ThemeChanger {
+  themeNr: any;
+
   themeChanger = document.createElement("div");
   selectedThemeId = 2;
 
@@ -39,7 +41,7 @@ export default class ThemeChanger {
     "catppuccin"
   ];
 
-  themeCssLink = document.querySelector("link[href='../styles/colors.css']");
+  themeCssLink = document.querySelector<HTMLLinkElement>("link[href='../styles/colors.css']");
 
   constructor(config) {
     this.themeNr = config.nr ?? 0;
@@ -70,7 +72,7 @@ export default class ThemeChanger {
     themeChangerContainer.appendChild(h1);
     themeChangerContainer.appendChild(this.themeChanger);
     // Change id for selected theme div
-    this.themeChanger.childNodes[this.selectedThemeId].id = "selected";
+    (this.themeChanger.childNodes[this.selectedThemeId] as HTMLElement).id = "selected";
     // Insert selected theme on the top
     this.themeChanger.insertBefore(
       this.themeChanger.childNodes[this.selectedThemeId],
@@ -83,14 +85,15 @@ export default class ThemeChanger {
 
   addListener = () => {
     document.addEventListener("click", (e) => {
-      if (e.target.name === "theme-radio") {
+      const target = e.target as HTMLInputElement;
+      if (target.name === "theme-radio") {
         // print index of clicked element
-        this.themeNr = this.THEMES.indexOf(e.target.id);
-        this.changeTheme(e.target.id);
+        this.themeNr = this.THEMES.indexOf(target.id);
+        this.changeTheme(target.id);
 
         const selectedTheme = document.querySelector("#selected");
         selectedTheme.removeAttribute("id");
-        e.target.parentElement.id = "selected";
+        target.parentElement.id = "selected";
       }
     });
   };
@@ -98,9 +101,9 @@ export default class ThemeChanger {
   addListenerMouseLeave = () => {
     this.themeChanger.addEventListener("mouseleave", function (event) {
       const selectedTheme = document.querySelector("#selected");
-      const path = event.path || (event.composedPath && event.composedPath());
-      path[0].insertBefore(selectedTheme, path[0].firstChild);
-      event.target.scrollTop = 0;
+      const target = event.currentTarget as HTMLElement;
+      target.insertBefore(selectedTheme, target.firstChild);
+      target.scrollTop = 0;
     });
   };
 

@@ -3,9 +3,17 @@
 // ====================================================== //
 
 export default class TreeUpdateEvent {
+  newObject: any;
+  type: any;
+  updatedObject: any;
+
   static legalTypes = ["save", "delete", "add"];
 
-  constructor({ type, updatedObject, newObject }) {
+  constructor({ type, updatedObject, newObject }: {
+    type: string;
+    updatedObject: unknown;
+    newObject?: unknown;
+  }) {
     this.type = this.checkType(type); // event type, must be one of legalTypes
     this.updatedObject = updatedObject; // the updated object
     this.newObject = newObject; // the new object (if available)

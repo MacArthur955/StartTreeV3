@@ -84,22 +84,31 @@ Click on the top right check button to **copy** and **go** to your new URL.
 </details>
 
 
-## Featured
-
-<a href="https://www.producthunt.com/posts/starttreev2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-starttreev2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=327867&theme=dark" alt="StartTreeV2 - A $tree styled start page generator. | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-
-
 ## Development
 
-The current version is stable and tested in Firefox, Chrome and Safari.
-If you want to contribute, feel free to make a pull request. Please keep it simple and lightweight.
+Install [Node.js 22](https://nodejs.org/en/download) (which includes
+[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)) and
+[just](https://just.systems/man/en/packages.html). These are the only tools
+needed for local development; `npm ci` installs the project's TypeScript
+dependency from `package-lock.json`.
+
+Run `npm ci` in the project directory before using the commands below.
+
+| Command | Purpose |
+| --- | --- |
+| `just style` | Check TypeScript types |
+| `just build` | Build the site in `dist/` |
+| `just run` | Build and serve locally at `http://localhost:8000/` using Node.js |
+
+Run `just` to see the command list. For GitHub Pages, select **GitHub Actions**
+as the publishing source in the repository's Pages settings.
 
 <details>
   <summary>Adding themes</summary>
   
-  1. Create a new .css file in [/themes](https://github.com/AlexW00/StartTreeV2/tree/master/themes), which follows the same structure as the existing ones (most of them were generated using [Pywal](https://github.com/dylanaraps/pywal)).
+  1. Create a new .css file in [/themes](https://github.com/MacArthur955/StartTreeV3/tree/main/themes), which follows the same structure as the existing ones (most of them were generated using [Pywal](https://github.com/dylanaraps/pywal)).
   
-  2. Add a new entry **at the end** of the `THEMES` array in [theme-changer.js](https://github.com/AlexW00/StartTreeV2/blob/master/js/views/tree/themechanger/theme-changer.js)
+  2. Add a new entry **at the end** of the `THEMES` array in [theme-changer.ts](https://github.com/MacArthur955/StartTreeV3/blob/main/js/views/tree/themechanger/theme-changer.ts)
   
   3. (make a pull request)
 </details>
