@@ -9,7 +9,11 @@ export default class TreeUpdateEvent<T extends object> {
 
   static legalTypes = ["save", "delete", "add"];
 
-  constructor({ type, updatedObject, newObject }: {
+  constructor({
+    type,
+    updatedObject,
+    newObject,
+  }: {
     type: string;
     updatedObject: T;
     newObject?: T;
@@ -23,7 +27,7 @@ export default class TreeUpdateEvent<T extends object> {
     if (!TreeUpdateEvent.legalTypes.includes(type)) {
       throw new Error(
         "TreeUpdateEvent: type must be 'save', 'cancel', or 'delete'. Found: " +
-          this.type
+          this.type,
       );
     } else return type;
   }

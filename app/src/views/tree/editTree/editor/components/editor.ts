@@ -3,8 +3,8 @@
 // ====================================================== //
 
 import EditorFinishEvent from "../events/editorFinishEvent.js";
-import EditorOptions from "../helperObjects/editorOptions.js";
-import EditorTarget from "../helperObjects/editorTarget.js";
+import type EditorOptions from "../helperObjects/editorOptions.js";
+import type EditorTarget from "../helperObjects/editorTarget.js";
 import Toolbar from "./toolbar.js";
 export default class Editor {
   allowTextEdit: boolean;
@@ -26,7 +26,12 @@ export default class Editor {
 
   // ~~~~~~~~~ Initialization functions ~~~~~~~~~ //
 
-  constructor(parentNode: HTMLElement, editorTarget: EditorTarget, editorOptions: EditorOptions, cb: (event: EditorFinishEvent) => void) {
+  constructor(
+    parentNode: HTMLElement,
+    editorTarget: EditorTarget,
+    editorOptions: EditorOptions,
+    cb: (event: EditorFinishEvent) => void,
+  ) {
     this.cb = cb; // callback function
     this.buttons = editorOptions.buttons; // ["link", "delete", "cancel"];
     this.parentNode = parentNode; // the parent node of the edit target
@@ -51,7 +56,7 @@ export default class Editor {
     this.root = this.html();
     this.parentNode.replaceChild(
       this.root,
-      this.parentNode.querySelector("#" + this.editorTarget.id)!
+      this.parentNode.querySelector("#" + this.editorTarget.id)!,
     );
 
     const children = this.parentNode.children;
@@ -173,8 +178,8 @@ export default class Editor {
       new EditorFinishEvent(
         "save",
         { text: this.text, link: this.link },
-        this.index
-      )
+        this.index,
+      ),
     );
   }
 
@@ -184,8 +189,8 @@ export default class Editor {
       new EditorFinishEvent(
         "cancel",
         { text: this.text, link: this.link },
-        this.index
-      )
+        this.index,
+      ),
     );
   }
 

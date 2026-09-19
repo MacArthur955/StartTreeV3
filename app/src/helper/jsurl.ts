@@ -23,11 +23,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 //
-let stringify = function stringify(v: unknown): string | undefined {
+const stringify = function stringify(v: unknown): string | undefined {
   function encode(s: string): string {
     return !/[^\w-.]/.test(s)
       ? s
-      : s.replace(/[^\w-.]/g, function (ch: string) {
+      : s.replace(/[^\w-.]/g, (ch: string) => {
           if (ch === "$") return "!";
           const code = ch.charCodeAt(0);
           // thanks to Douglas Crockford for the negative slice trick
@@ -59,7 +59,7 @@ let stringify = function stringify(v: unknown): string | undefined {
         return "~(" + (tmpAry.join("") || "~") + ")";
       } else {
         for (var key in v) {
-          if (Object.prototype.hasOwnProperty.call(v, key)) {
+          if (Object.hasOwn(v, key)) {
             var val = stringify((v as Record<string, unknown>)[key]);
 
             // skip undefined and functions
@@ -83,16 +83,19 @@ var reserved = {
   null: null,
 };
 
-let parse = function (input: string | null): unknown {
+const parse = (input: string | null): unknown => {
   if (!input) return input;
-  let s = input.replace(/%(25)*27/g, "'");
+  const s = input.replace(/%(25)*27/g, "'");
   var i = 0,
     len = s.length;
 
   function eat(expected: string) {
     if (s.charAt(i) !== expected)
       throw new Error(
-        "bad JSURL syntax: expected " + expected + ", got " + (s && s.charAt(i))
+        "bad JSURL syntax: expected " +
+          expected +
+          ", got " +
+          (s && s.charAt(i)),
       );
     i++;
   }
@@ -152,20 +155,21 @@ let parse = function (input: string | null): unknown {
         i++;
         result = decode();
         break;
-      default:
+      default: {
         beg = i++;
         while (i < len && /[^)~]/.test(s.charAt(i))) i++;
         var sub = s.substring(beg, i);
-        if (/[\d\-]/.test(ch)) {
+        if (/[\d-]/.test(ch)) {
           result = parseFloat(sub);
         } else {
           result = reserved[sub as keyof typeof reserved];
           if (typeof result === "undefined")
             throw new Error("bad value keyword: " + sub);
         }
+      }
     }
     return result;
   })();
 };
 
-export { stringify, parse };
+export { parse, stringify };

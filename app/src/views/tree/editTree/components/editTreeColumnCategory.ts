@@ -1,13 +1,16 @@
-import Button from "../../../other/button.js";
-import EditTreeItem from "./editTreeItem.js";
-import Editor from "../editor/components/editor.js";
-import editorTarget from "../editor/helperObjects/editorTarget.js";
-import EditorOptions from "../editor/helperObjects/editorOptions.js";
-import TreeUpdateEvent from "../events/treeUpdateEvent.js";
 import DragOptions from "../../../../helper/dragOptions.js";
 import makeDraggable from "../../../../helper/makeDraggable.js";
-import type { CategoryConfig, BookmarkConfig } from "../../components/treeTypes.js";
+import Button from "../../../other/button.js";
 import TreeColumnCategory from "../../components/treeColumnCategory.js";
+import type {
+  BookmarkConfig,
+  CategoryConfig,
+} from "../../components/treeTypes.js";
+import Editor from "../editor/components/editor.js";
+import EditorOptions from "../editor/helperObjects/editorOptions.js";
+import editorTarget from "../editor/helperObjects/editorTarget.js";
+import TreeUpdateEvent from "../events/treeUpdateEvent.js";
+import EditTreeItem from "./editTreeItem.js";
 
 // ====================================================== //
 // ================= EditTreeColumnCategory ============= //
@@ -17,7 +20,10 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
   onUpdate: (event: TreeUpdateEvent<EditTreeColumnCategory>) => void;
 
   static override count = 0;
-  constructor(bookmarkCategory: CategoryConfig, onUpdate: (event: TreeUpdateEvent<EditTreeColumnCategory>) => void) {
+  constructor(
+    bookmarkCategory: CategoryConfig,
+    onUpdate: (event: TreeUpdateEvent<EditTreeColumnCategory>) => void,
+  ) {
     super(bookmarkCategory);
     this.onUpdate = onUpdate;
   }
@@ -80,7 +86,9 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
   }
 
   #onDrop = (event: DragEvent) => {
-    const dragItemData = JSON.parse(event.dataTransfer?.getData("text") ?? "{}");
+    const dragItemData = JSON.parse(
+      event.dataTransfer?.getData("text") ?? "{}",
+    );
 
     const dragItemClass = dragItemData.classList[0];
 
@@ -91,7 +99,7 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
   #onDropCategory(dragItemData: CategoryConfig) {
     const draggedItem = new EditTreeColumnCategory(
       { cn: dragItemData.cn, b: dragItemData.b },
-      this.onUpdate
+      this.onUpdate,
     );
     const draggedItemHtml = draggedItem.html();
     this.root.parentNode?.insertBefore(draggedItemHtml, this.root);
@@ -100,14 +108,14 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
         type: "add",
         updatedObject: this,
         newObject: draggedItem,
-      })
+      }),
     );
   }
 
   #onDropBookmark(dragItemData: BookmarkConfig) {
     const draggedItem = new EditTreeItem(
       { n: dragItemData.n, u: dragItemData.u },
-      this.onBookmarkUpdate.bind(this)
+      this.onBookmarkUpdate.bind(this),
     );
     const draggedItemHtml = draggedItem.html();
 
@@ -116,7 +124,7 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
     this.treeItems.unshift(draggedItem);
     categoryList?.insertBefore(
       draggedItemHtml,
-      categoryList?.querySelector(".bookmark")
+      categoryList?.querySelector(".bookmark"),
     );
   }
 
@@ -129,7 +137,7 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
       // create new empty bookmark element
       const newBookmark = new EditTreeItem(
           { n: "new bookmark", u: "" },
-          this.onBookmarkUpdate.bind(this)
+          this.onBookmarkUpdate.bind(this),
         ),
         newBookmarkHtml = newBookmark.html();
       ul.appendChild(newBookmarkHtml);
@@ -149,7 +157,7 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
             this.treeItems.push(newBookmark);
             ul.appendChild(newBookmark.renderHtml());
           }
-        }
+        },
       );
     });
     return addBookmarkButton;
@@ -167,19 +175,19 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
           h1 = this.categoryTitleHtml();
           this.root.insertBefore(h1, this.bookmarkList);
           this.onUpdate(
-            new TreeUpdateEvent({ type: "save", updatedObject: this })
+            new TreeUpdateEvent({ type: "save", updatedObject: this }),
           );
         } else if (editorFinishEvent.type === "delete") {
           // if the editor exits with "delete", delete the category
           this.root.remove();
           this.onUpdate(
-            new TreeUpdateEvent({ type: "delete", updatedObject: this })
+            new TreeUpdateEvent({ type: "delete", updatedObject: this }),
           );
         } else {
           // if the editor exits with "cancel", only re-attach the category title
           this.root.insertBefore(h1, this.bookmarkList);
         }
-      }
+      },
     );
   };
 
@@ -189,7 +197,7 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
     if (treeUpdateEvent.type === "delete") {
       this.treeItems.splice(
         this.treeItems.indexOf(treeUpdateEvent.updatedObject),
-        1
+        1,
       );
     } else if (treeUpdateEvent.type === "add" && treeUpdateEvent.newObject) {
       // add the bookmark to bookmarks after the updated object, if updated object isn't in listit will be added to the end

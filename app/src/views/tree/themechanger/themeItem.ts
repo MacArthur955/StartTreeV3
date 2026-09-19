@@ -6,7 +6,7 @@ export default class ThemeItem {
   name: string;
 
   static themeCssLink = document.querySelector(
-    "link[href='./styles/colors.css']"
+    "link[href='./styles/colors.css']",
   );
 
   constructor(themeName: string) {

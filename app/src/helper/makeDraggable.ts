@@ -1,5 +1,11 @@
-import DragOptions from "./dragOptions.js";
-export type DragAction = "dragstart" | "dragend" | "dragover" | "dragenter" | "dragleave" | "drop";
+import type DragOptions from "./dragOptions.js";
+export type DragAction =
+  | "dragstart"
+  | "dragend"
+  | "dragover"
+  | "dragenter"
+  | "dragleave"
+  | "drop";
 // ====================================================== //
 // ==================== makeDraggable =================== //
 // ====================================================== //
@@ -7,7 +13,11 @@ export type DragAction = "dragstart" | "dragend" | "dragover" | "dragenter" | "d
 // helper method to make an element draggable, configured with DragOptions
 
 let lastDropWasValid = false;
-export default (element: HTMLElement, dragOptions: DragOptions, callback: (type: DragAction, event: DragEvent) => void) => {
+export default (
+  element: HTMLElement,
+  dragOptions: DragOptions,
+  callback: (type: DragAction, event: DragEvent) => void,
+) => {
   element.draggable = true;
   element.classList.add("dropzone");
 
@@ -19,7 +29,7 @@ export default (element: HTMLElement, dragOptions: DragOptions, callback: (type:
 
   element.addEventListener("dragend", (event) => {
     event.preventDefault();
-    if (event.dataTransfer?.dropEffect != "none" && lastDropWasValid) {
+    if (event.dataTransfer?.dropEffect !== "none" && lastDropWasValid) {
       callback("dragend", event);
       event.stopPropagation();
     }
@@ -47,7 +57,7 @@ export default (element: HTMLElement, dragOptions: DragOptions, callback: (type:
   element.addEventListener("drop", (event) => {
     event.preventDefault();
     lastDropWasValid = _isValidDropzone(
-      JSON.parse(event.dataTransfer?.getData("text") ?? "{}")
+      JSON.parse(event.dataTransfer?.getData("text") ?? "{}"),
     );
     if (lastDropWasValid) {
       event.stopPropagation();

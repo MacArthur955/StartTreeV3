@@ -1,5 +1,5 @@
-import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
+import { createServer } from "node:http";
 import { extname, resolve, sep } from "node:path";
 
 const root = resolve("dist");
@@ -19,7 +19,9 @@ createServer(async (request, response) => {
 
   let file;
   try {
-    const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
+    const pathname = decodeURIComponent(
+      new URL(request.url, "http://localhost").pathname,
+    );
     file = resolve(root, `.${pathname === "/" ? "/index.html" : pathname}`);
     if (!file.startsWith(root + sep)) {
       response.writeHead(403).end();
@@ -31,7 +33,9 @@ createServer(async (request, response) => {
     });
     response.end(request.method === "HEAD" ? undefined : body);
   } catch (error) {
-    response.writeHead(error.code === "ENOENT" || error.code === "EISDIR" ? 404 : 400).end();
+    response
+      .writeHead(error.code === "ENOENT" || error.code === "EISDIR" ? 404 : 400)
+      .end();
   }
 }).listen(8000, "127.0.0.1", () => {
   console.log("Serving http://localhost:8000/");

@@ -1,7 +1,7 @@
-import type { TreeConfig, CategoryConfig } from "./treeTypes.js";
 import ThemeChanger from "../themechanger/theme-changer.js";
 import SearchBar from "./searchBar.js";
 import TreeColumn from "./treeColumn.js";
+import type { CategoryConfig, TreeConfig } from "./treeTypes.js";
 
 // ====================================================== //
 // ======================== Tree ======================== //

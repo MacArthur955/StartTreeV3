@@ -1,11 +1,11 @@
-import EditTreeColumnCategory from "./editTreeColumnCategory.js";
 import Button from "../../../other/button.js";
-import Editor from "../editor/components/editor.js";
-import editorTarget from "../editor/helperObjects/editorTarget.js";
-import EditorOptions from "../editor/helperObjects/editorOptions.js";
-import TreeUpdateEvent from "../events/treeUpdateEvent.js";
-import type { CategoryConfig } from "../../components/treeTypes.js";
 import TreeColumn from "../../components/treeColumn.js";
+import type { CategoryConfig } from "../../components/treeTypes.js";
+import Editor from "../editor/components/editor.js";
+import EditorOptions from "../editor/helperObjects/editorOptions.js";
+import editorTarget from "../editor/helperObjects/editorTarget.js";
+import TreeUpdateEvent from "../events/treeUpdateEvent.js";
+import EditTreeColumnCategory from "./editTreeColumnCategory.js";
 
 // ====================================================== //
 // ======================= TreeColumn =================== //
@@ -14,7 +14,10 @@ import TreeColumn from "../../components/treeColumn.js";
 export default class EditTreeColumn extends TreeColumn {
   onUpdate: (event: TreeUpdateEvent<EditTreeColumn>) => void;
 
-  constructor(bookmarkColumn: CategoryConfig[], onUpdate: (event: TreeUpdateEvent<EditTreeColumn>) => void) {
+  constructor(
+    bookmarkColumn: CategoryConfig[],
+    onUpdate: (event: TreeUpdateEvent<EditTreeColumn>) => void,
+  ) {
     super(bookmarkColumn);
     this.onUpdate = onUpdate;
   }
@@ -25,7 +28,7 @@ export default class EditTreeColumn extends TreeColumn {
     return categoryConfig.map((bookmarkCategory) => {
       return new EditTreeColumnCategory(
         bookmarkCategory,
-        this.onCategoryUpdate.bind(this)
+        this.onCategoryUpdate.bind(this),
       );
     });
   }
@@ -33,7 +36,7 @@ export default class EditTreeColumn extends TreeColumn {
   override renderHtml() {
     this.root = super.renderHtml();
     this.categoryList.lastElementChild?.appendChild(
-      this.#newAddCategoryButton()
+      this.#newAddCategoryButton(),
     );
     return this.root;
   }
@@ -58,16 +61,16 @@ export default class EditTreeColumn extends TreeColumn {
       (editorFinishEvent) => {
         if (editorFinishEvent.type === "delete") {
           this.onUpdate(
-            new TreeUpdateEvent({ type: "delete", updatedObject: this })
+            new TreeUpdateEvent({ type: "delete", updatedObject: this }),
           );
           this.root.remove();
         } else {
           this.tree.insertBefore(
             this.columnTitle,
-            this.tree.querySelectorAll("ul")[editorFinishEvent.index] ?? null
+            this.tree.querySelectorAll("ul")[editorFinishEvent.index] ?? null,
           );
         }
-      }
+      },
     );
   };
 
@@ -93,7 +96,7 @@ export default class EditTreeColumn extends TreeColumn {
     // creates new category and appends it to the end of the node
     const newBookmarkCategory = new EditTreeColumnCategory(
       { cn: "new category", b: [] },
-      this.onCategoryUpdate
+      this.onCategoryUpdate,
     );
 
     const newBookmarkCategoryHtml = newBookmarkCategory.html();
@@ -117,7 +120,7 @@ export default class EditTreeColumn extends TreeColumn {
           // re append the button
           this.categoryList.lastElementChild?.appendChild(addCategoryButton);
         }
-      }
+      },
     );
   };
 
@@ -126,7 +129,7 @@ export default class EditTreeColumn extends TreeColumn {
   onCategoryUpdate(treeUpdateEvent: TreeUpdateEvent<EditTreeColumnCategory>) {
     if (treeUpdateEvent.type === "delete") {
       const categoryIndex = this.bookmarkCategories.indexOf(
-        treeUpdateEvent.updatedObject
+        treeUpdateEvent.updatedObject,
       );
       this.bookmarkCategories.splice(categoryIndex, 1);
 
@@ -134,7 +137,7 @@ export default class EditTreeColumn extends TreeColumn {
       if (this.bookmarkCategories.length === 0) {
         this.root.remove();
         this.onUpdate(
-          new TreeUpdateEvent({ type: "delete", updatedObject: this })
+          new TreeUpdateEvent({ type: "delete", updatedObject: this }),
         );
       }
       // else if this was the last category in the list, append the add button to the new last category
@@ -146,13 +149,13 @@ export default class EditTreeColumn extends TreeColumn {
     if (treeUpdateEvent.type === "add" && treeUpdateEvent.newObject) {
       // get the index of the category to add
       const categoryIndex = this.bookmarkCategories.indexOf(
-        treeUpdateEvent.updatedObject
+        treeUpdateEvent.updatedObject,
       );
       // add the category to the array
       this.bookmarkCategories.splice(
         categoryIndex,
         0,
-        treeUpdateEvent.newObject
+        treeUpdateEvent.newObject,
       );
     }
   }

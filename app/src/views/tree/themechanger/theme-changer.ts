@@ -38,10 +38,12 @@ export default class ThemeChanger {
     "MonokaiPro",
     "Programiz",
     "autumn-mech",
-    "catppuccin"
+    "catppuccin",
   ];
 
-  themeCssLink = document.querySelector<HTMLLinkElement>("link[href='../styles/colors.css']");
+  themeCssLink = document.querySelector<HTMLLinkElement>(
+    "link[href='../styles/colors.css']",
+  );
 
   constructor(config: { nr?: number }) {
     this.themeNr = config.nr ?? 0;
@@ -72,11 +74,12 @@ export default class ThemeChanger {
     themeChangerContainer.appendChild(h1);
     themeChangerContainer.appendChild(this.themeChanger);
     // Change id for selected theme div
-    (this.themeChanger.childNodes[this.selectedThemeId] as HTMLElement).id = "selected";
+    (this.themeChanger.childNodes[this.selectedThemeId] as HTMLElement).id =
+      "selected";
     // Insert selected theme on the top
     this.themeChanger.insertBefore(
       this.themeChanger.childNodes[this.selectedThemeId]!,
-      this.themeChanger.firstChild
+      this.themeChanger.firstChild,
     );
 
     root.appendChild(themeChangerContainer);
@@ -99,7 +102,7 @@ export default class ThemeChanger {
   };
 
   addListenerMouseLeave = () => {
-    this.themeChanger.addEventListener("mouseleave", function (event) {
+    this.themeChanger.addEventListener("mouseleave", (event) => {
       const selectedTheme = document.querySelector("#selected");
       const target = event.currentTarget as HTMLElement;
       if (selectedTheme) target.insertBefore(selectedTheme, target.firstChild);

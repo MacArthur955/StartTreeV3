@@ -74,7 +74,9 @@ export default class TreeColumn {
 
   // ~~~~~~~~~~~~ class functionality ~~~~~~~~~~~~ //
 
-  initBookmarkCategories(categoryConfig: { cn: string; b: { n: string; u: string }[] }[]) {
+  initBookmarkCategories(
+    categoryConfig: { cn: string; b: { n: string; u: string }[] }[],
+  ) {
     return categoryConfig.map((bookmarkCategory) => {
       return new TreeColumnCategory(bookmarkCategory);
     });

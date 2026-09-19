@@ -1,4 +1,4 @@
-name: Build and deploy Pages
+name: Check and deploy Pages
 
 on:
   push:
@@ -10,7 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  style:
+    name: Biome
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +22,18 @@ jobs:
       - uses: taiki-e/install-action@just
       - run: npm ci
       - run: just style
+
+  build:
+    name: TypeScript and build
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: taiki-e/install-action@just
+      - run: npm ci
       - run: just build
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'
@@ -28,8 +41,9 @@ jobs:
           path: dist
 
   deploy:
+    name: Deploy Pages
     if: github.event_name != 'pull_request'
-    needs: build
+    needs: [style, build]
     runs-on: ubuntu-slim
     permissions:
       pages: write

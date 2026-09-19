@@ -2,14 +2,13 @@
 // ====================== SearchBar ===================== //
 // ====================================================== //;
 
+import Button from "../../../other/button.js";
 import SearchBar from "../../components/searchBar.js";
 import Editor from "../editor/components/editor.js";
 import EditorOptions from "../editor/helperObjects/editorOptions.js";
 import editorTarget from "../editor/helperObjects/editorTarget.js";
-import Button from "../../../other/button.js";
 
 export default class EditSearchBar extends SearchBar {
-
   constructor(config: { n?: string; u?: string }) {
     super(config);
   }
@@ -48,7 +47,7 @@ export default class EditSearchBar extends SearchBar {
         new editorTarget(
           this.searchEngineNameShort,
           this.searchEngineUrl,
-          "searchBarText"
+          "searchBarText",
         ),
         new EditorOptions({
           openWithLinkInput: true,
@@ -63,7 +62,7 @@ export default class EditSearchBar extends SearchBar {
           } else {
             this.root.prepend(this.#sectionNameHtml());
           }
-        }
+        },
       );
     });
     return sectionName;
