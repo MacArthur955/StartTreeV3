@@ -2,15 +2,15 @@ import type { TreeConfig } from "../views/tree/components/treeTypes.js";
 import { parse, stringify } from "./jsurl.js";
 
 const GZIP_PREFIX = "g1.";
-const COMPACT_PREFIX = "d1.";
-const SEPARATED_PREFIX = "s1.";
+const COMPACT_PREFIX = "d2.";
+const SEPARATED_PREFIX = "s2.";
+const LEGACY_COMPACT_PREFIX = "d1.";
+const LEGACY_SEPARATED_PREFIX = "s1.";
 const SEPARATOR = "\u001f";
 const ESCAPE = "\\";
 const MISSING = "\u0000";
 
 type CompactConfig = [
-  string | null,
-  string | null,
   number | null,
   string | null,
   [string, [string, string][]][][],
@@ -18,8 +18,6 @@ type CompactConfig = [
 
 function compact(config: TreeConfig): CompactConfig {
   return [
-    config.s.n ?? null,
-    config.s.u ?? null,
     config.t.nr ?? null,
     config.v ?? null,
     config.bmc.map((column) =>
@@ -32,13 +30,9 @@ function compact(config: TreeConfig): CompactConfig {
 }
 
 function expand(data: CompactConfig): TreeConfig {
-  const [searchName, searchUrl, numberOfRows, version, columns] = data;
+  const [numberOfRows, version, columns] = data;
   return {
     ...(version === null ? {} : { v: version }),
-    s: {
-      ...(searchName === null ? {} : { n: searchName }),
-      ...(searchUrl === null ? {} : { u: searchUrl }),
-    },
     t: numberOfRows === null ? {} : { nr: numberOfRows },
     bmc: columns.map((column) =>
       column.map(([name, bookmarks]) => ({
@@ -54,8 +48,6 @@ function expand(data: CompactConfig): TreeConfig {
 
 function separate(config: TreeConfig): string {
   const tokens: (string | null)[] = [
-    config.s.n ?? null,
-    config.s.u ?? null,
     config.t.nr === undefined ? null : String(config.t.nr),
     config.v ?? null,
     String(config.bmc.length),
@@ -88,7 +80,7 @@ function separate(config: TreeConfig): string {
     .join(SEPARATOR);
 }
 
-function joinSeparated(data: string): TreeConfig {
+function joinSeparated(data: string, legacy = false): TreeConfig {
   const rawTokens: string[] = [];
   let token = "";
   for (let index = 0; index < data.length; index++) {
@@ -132,8 +124,10 @@ function joinSeparated(data: string): TreeConfig {
     return number;
   };
 
-  const searchName = next();
-  const searchUrl = next();
+  if (legacy) {
+    next();
+    next();
+  }
   const rows = next();
   const version = next();
   const bmc: TreeConfig["bmc"] = [];
@@ -168,10 +162,6 @@ function joinSeparated(data: string): TreeConfig {
 
   return {
     ...(version === null ? {} : { v: version }),
-    s: {
-      ...(searchName === null ? {} : { n: searchName }),
-      ...(searchUrl === null ? {} : { u: searchUrl }),
-    },
     t: nr === undefined ? {} : { nr },
     bmc,
   };
@@ -226,6 +216,14 @@ export async function encodeConfig(config: TreeConfig): Promise<string> {
   }
 }
 
+function withoutSearch(config: TreeConfig): TreeConfig {
+  return {
+    ...(config.v === undefined ? {} : { v: config.v }),
+    bmc: config.bmc,
+    t: config.t,
+  };
+}
+
 export async function decodeConfig(
   value: string | null,
 ): Promise<TreeConfig | null> {
@@ -244,9 +242,28 @@ export async function decodeConfig(
     );
     return joinSeparated(data);
   }
+  if (value.startsWith(LEGACY_COMPACT_PREFIX)) {
+    const data = await decompress(
+      value.slice(LEGACY_COMPACT_PREFIX.length),
+      "deflate-raw",
+    );
+    const [, , ...remaining] = JSON.parse(data) as [
+      unknown,
+      unknown,
+      ...CompactConfig,
+    ];
+    return expand(remaining);
+  }
+  if (value.startsWith(LEGACY_SEPARATED_PREFIX)) {
+    const data = await decompress(
+      value.slice(LEGACY_SEPARATED_PREFIX.length),
+      "deflate-raw",
+    );
+    return joinSeparated(data, true);
+  }
   if (value.startsWith(GZIP_PREFIX)) {
     const data = await decompress(value.slice(GZIP_PREFIX.length), "gzip");
-    return JSON.parse(data) as TreeConfig;
+    return withoutSearch(JSON.parse(data) as TreeConfig);
   }
-  return parse(value) as TreeConfig;
+  return withoutSearch(parse(value) as TreeConfig);
 }

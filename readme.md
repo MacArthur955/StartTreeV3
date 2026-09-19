@@ -2,9 +2,9 @@
 ![starttreebanner](https://user-images.githubusercontent.com/55558407/144808254-d5cb11e0-950d-4fd5-a47a-21572b2ff970.png)
 
 
-# StartTreeV2
+# StartTreeV3
 
-StartTreeV2 is a custom start page for your browser, also it's:
+StartTreeV3 is a custom start page for your browser, also it's:
 
 - 🆓 **Free**: hosted on Github pages
 - 🔒 **Private**: no database, saved via url
@@ -18,7 +18,7 @@ StartTreeV2 is a custom start page for your browser, also it's:
 
 No link is selected when the page opens. Press any arrow key, `h`, `j`, `k`, `l`, or `Tab` to select the first link in the top left. Then use `↑`/`k` and `↓`/`j` to move between links in a column, or `←`/`h` and `→`/`l` to move between columns. Press `Enter` to open the selected link.
 
-Movement stops at the edges. When moving into a shorter column, selection moves to its last link; the next move starts from that row. The search field is not part of keyboard navigation.
+Movement stops at the edges. When moving into a shorter column, selection moves to its last link; the next move starts from that row.
 
 <details>
   <summary>✏️ Configuring</summary>
@@ -36,11 +36,7 @@ Click the (+) buttons to add new elements:
 
 #### Editing elements
 
-<details>
-  <summary> Search engine URLs</summary>
-  Google search url: <code>https://www.google.com/search?q=</code><br/>
-  DuckDuckGo search url: <code>https://duckduckgo.com/?q=</code>
-</details>
+
   
 Click on elements you would like to edit:
 
@@ -126,9 +122,9 @@ as the publishing source in the repository's Pages settings.
 
 ## Credits
 
-StartTreeV2 is based on a static website generated using [StartTree](https://github.com/Paul-Houser/StartTree). Huge Thanks @Paul-Houser for creating such an awesome project!
+StartTreeV3 is based on a static website generated using [StartTree](https://github.com/Paul-Houser/StartTree). Huge Thanks @Paul-Houser for creating such an awesome project!
 
-How StartTreeV2 differs from StartTree:
+How StartTreeV3 differs from StartTree:
 
 The original version is a python program, which generates a static html page based on a yaml config.
 This version is a website hosted on Github pages, which means you do not have to host it yourself. To configure your tree, I added a web editor, which allows editing the tree directly in the browser. That means you do not have to write a yaml config and recompile the page every time you want to make a change. Your configuration data is stored in the url, which you simply copy once you are done with your configuration.

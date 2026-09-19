@@ -6,10 +6,9 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const treeConfig = (await decodeConfig(urlParams.get("t"))) ?? {
   bmc: [],
-  s: {},
   t: {},
 };
-const REPO_URL = "https://github.com/AlexW00/StartTreeV2";
+const REPO_URL = "https://github.com/MacArthur955/StartTreeV3";
 
 const t = new EditTree(treeConfig);
 document.body.appendChild(t.html());
