@@ -11,6 +11,8 @@ import TreeColumn from "../../components/treeColumn.js";
 // ====================================================== //
 
 export default class EditTreeColumn extends TreeColumn {
+  onUpdate: any;
+
   constructor(bookmarkColumn, onUpdate) {
     super(bookmarkColumn);
     this.onUpdate = onUpdate;
@@ -37,7 +39,7 @@ export default class EditTreeColumn extends TreeColumn {
 
   columnTitleHtml() {
     const h1 = super.columnTitleHtml();
-    h1.addEventListener("click", () => this.#categoryTitleListener);
+    h1.addEventListener("click", this.#categoryTitleListener);
     return h1;
   }
 
@@ -46,7 +48,7 @@ export default class EditTreeColumn extends TreeColumn {
   #categoryTitleListener = () => {
     new Editor(
       this.tree,
-      new editorTarget(".", null, this.h1.id),
+      new editorTarget(".", null, this.columnTitle.id),
       new EditorOptions({
         allowTextEdit: false,
         buttons: ["cancel", "delete"],
@@ -60,7 +62,7 @@ export default class EditTreeColumn extends TreeColumn {
           this.root.remove();
         } else {
           this.tree.insertBefore(
-            this.h1,
+            this.columnTitle,
             this.tree.querySelectorAll("ul")[editorFinishEvent.index]
           );
         }
@@ -137,7 +139,7 @@ export default class EditTreeColumn extends TreeColumn {
       // else if this was the last category in the list, append the add button to the new last category
       else if (categoryIndex === this.bookmarkCategories.length) {
         const lastCategory = this.root.querySelector("ul").lastChild;
-        lastCategory.appendChild(this.#newAddCategoryButton(this.root));
+        lastCategory.appendChild(this.#newAddCategoryButton());
       }
     }
     if (treeUpdateEvent.type === "add") {

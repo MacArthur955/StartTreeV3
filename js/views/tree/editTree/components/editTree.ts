@@ -9,6 +9,7 @@ import Tree from "../../components/tree.js";
 // ====================================================== //
 
 export default class EditTree extends Tree {
+
   constructor(config) {
     super(config);
   }

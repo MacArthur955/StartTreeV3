@@ -3,6 +3,14 @@
 // ====================================================== //;
 
 export default class SearchBar {
+  form: any;
+  formInput: any;
+  h1: any;
+  root: any;
+  searchEngineNameShort: any;
+  searchEngineUrl: any;
+  sectionName: any;
+
   constructor(config) {
     this.searchEngineUrl = config.u ?? "https://duckduckgo.com/?q=";
     this.searchEngineNameShort = config.n ?? "ddg";

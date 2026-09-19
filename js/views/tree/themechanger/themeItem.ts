@@ -3,6 +3,8 @@
 // ====================================================== //
 
 export default class ThemeItem {
+  name: any;
+
   static themeCssLink = document.querySelector(
     "link[href='./styles/colors.css']"
   );

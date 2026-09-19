@@ -13,6 +13,8 @@ import TreeColumnCategory from "../../components/treeColumnCategory.js";
 // ====================================================== //
 
 export default class EditTreeColumnCategory extends TreeColumnCategory {
+  onUpdate: any;
+
   static count = 0;
   constructor(bookmarkCategory, onUpdate) {
     super(bookmarkCategory);
@@ -53,8 +55,7 @@ export default class EditTreeColumnCategory extends TreeColumnCategory {
   }
 
   #makeDraggable = () => {
-    const dragOptionsData = this.export();
-    dragOptionsData.classList = ["category"];
+    const dragOptionsData = { ...this.export(), classList: ["category"] };
     const dragOptions = new DragOptions({
       data: JSON.stringify(dragOptionsData),
       validDropzones: ["category", "bookmark"],

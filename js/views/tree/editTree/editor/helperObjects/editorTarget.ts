@@ -3,6 +3,10 @@
 // ====================================================== //
 
 export default class editorTarget {
+  id: any;
+  text: any;
+  url: any;
+
   constructor(text, url, id) {
     this.text = text ?? ""; // text to be edited
     this.url = url ?? "#"; // url to be edited

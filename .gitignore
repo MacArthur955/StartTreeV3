@@ -1,2 +1,11 @@
+# System files
 .DS_Store
-.idea
+
+# Editor settings
+.idea/
+
+# Installed dependencies
+node_modules/
+
+# Generated site
+dist/

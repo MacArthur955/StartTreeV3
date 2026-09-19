@@ -91,8 +91,16 @@ Click on the top right check button to **copy** and **go** to your new URL.
 
 ## Development
 
-The current version is stable and tested in Firefox, Chrome and Safari.
-If you want to contribute, feel free to make a pull request. Please keep it simple and lightweight.
+Install Node.js and [just](https://just.systems/), then run `npm ci`.
+
+| Command | Purpose |
+| --- | --- |
+| `just style` | Check TypeScript types |
+| `just build` | Build the site in `dist/` |
+| `just run` | Build and serve at `http://localhost:8000/` |
+
+Run `just` to see the command list. For GitHub Pages, select **GitHub Actions**
+as the publishing source in the repository's Pages settings.
 
 <details>
   <summary>Adding themes</summary>

@@ -3,8 +3,11 @@
 // ====================================================== //
 
 export default class Button {
+  svg: any;
+  type: any;
+
   // possible values for type: "save", "cancel", "add" or "delete"
-  constructor(type, width, height) {
+  constructor(type, width?: number, height?: number) {
     this.type = type;
     if (type === "add") {
       this.svg = `

@@ -7,6 +7,14 @@ import TreeColumn from "./treeColumn.js";
 // ====================================================== //
 
 export default class Tree {
+  bookmarkColumns: any;
+  bookmarkRow: any;
+  root: any;
+  searchBar: any;
+  themeChanger: any;
+  titlePrompt: any;
+  version: any;
+
   constructor(config) {
     this.version = config.v || "0.0";
 

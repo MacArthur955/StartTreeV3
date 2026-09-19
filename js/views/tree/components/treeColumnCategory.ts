@@ -5,6 +5,13 @@
 import TreeItem from "./treeItem.js";
 
 export default class TreeColumnCategory {
+  bookmarkList: any;
+  categoryTitle: any;
+  id: any;
+  name: any;
+  root: any;
+  treeItems: any;
+
   static count = 0;
   constructor(bookmarkCategory) {
     TreeColumnCategory.count++;

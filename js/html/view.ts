@@ -7,7 +7,7 @@ const urlParams = new URLSearchParams(queryString);
 const treeConfig = parse(urlParams.get("t")) || {};
 const editModeHref = "./edit.html";
 
-const t = new Tree(treeConfig, false);
+const t = new Tree(treeConfig);
 document.body.appendChild(t.html());
 
 const editModeButtonHtml = () => {

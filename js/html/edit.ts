@@ -7,7 +7,7 @@ const urlParams = new URLSearchParams(queryString);
 const treeConfig = parse(urlParams.get("t")) || {};
 const REPO_URL = "https://github.com/AlexW00/StartTreeV2";
 
-const t = new EditTree(treeConfig, true);
+const t = new EditTree(treeConfig);
 document.body.appendChild(t.html());
 
 const getExportUrl = () => {

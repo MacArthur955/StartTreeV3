@@ -9,6 +9,7 @@ import editorTarget from "../editor/helperObjects/editorTarget.js";
 import Button from "../../../other/button.js";
 
 export default class EditSearchBar extends SearchBar {
+
   constructor(config) {
     super(config);
   }
