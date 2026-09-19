@@ -56,7 +56,7 @@ export default class Editor {
     this.root = this.html();
     this.parentNode.replaceChild(
       this.root,
-      this.parentNode.querySelector("#" + this.editorTarget.id)!,
+      this.parentNode.querySelector(`#${this.editorTarget.id}`)!,
     );
 
     const children = this.parentNode.children;

@@ -95,7 +95,7 @@ export default class Button {
     const button = document.createElement("div");
 
     button.classList.add("button");
-    button.classList.add(this.type + "-button");
+    button.classList.add(`${this.type}-button`);
     button.innerHTML = this.svg;
     return button;
   };

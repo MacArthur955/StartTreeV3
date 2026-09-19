@@ -16,11 +16,11 @@ const t = new EditTree(treeConfig);
 document.body.appendChild(t.html());
 
 const getExportUrl = () => {
-  const host = window.location.protocol + "//" + location.host,
+  const host = `${window.location.protocol}//${location.host}`,
     path = location.pathname,
     affix = "?t=",
     data = stringify(t.export());
-  return host + path.replace("edit.html", "view.html") + affix + data;
+  return `${host}${path.replace("edit.html", "view.html")}${affix}${data}`;
 };
 
 const cancelButtonHtml = () => {

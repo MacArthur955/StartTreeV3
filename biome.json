@@ -7,16 +7,38 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
+  "linter": {
+    "rules": {
+      "style": {
+        "noNonNullAssertion": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "includes": ["app/src/helper/jsurl.ts"],
       "linter": {
         "rules": {
+          "complexity": {
+            "noCommaOperator": "off",
+            "useOptionalChain": "off"
+          },
           "correctness": { "noInnerDeclarations": "off" },
+          "style": { "useTemplate": "off" },
           "suspicious": {
             "noAssignInExpressions": "off",
+            "noGlobalIsFinite": "off",
             "noImplicitAnyLet": "off"
           }
+        }
+      }
+    },
+    {
+      "includes": ["app/**/*.css"],
+      "linter": {
+        "rules": {
+          "complexity": { "noImportantStyles": "off" },
+          "style": { "noDescendingSpecificity": "off" }
         }
       }
     }
