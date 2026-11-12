@@ -82,6 +82,7 @@ Alexander's Weichart project which I customized a bit.
 
 How StartTreeV3 differs from StartTreeV2:
 
+* Themes automatically switch between light and dark with the system theme
 * Keyboard navigation
 * Url shortening
 * No search engine

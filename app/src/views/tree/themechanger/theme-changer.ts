@@ -1,58 +1,30 @@
-// ====================================================== //
-// ==================== ThemeChanger ==================== //
-// ====================================================== //
-
-import ThemeItem from "./themeItem.js";
 export default class ThemeChanger {
-  themeNr: number;
-
-  themeChanger = document.createElement("div");
-  selectedThemeId = 2;
-
-  // all themes, hardcorded currently
-  THEMES = [
-    "black-ice",
-    "carnival",
-    "cotton-candy",
-    "desert-sky",
-    "ferns",
-    "forest",
-    "gruvbox",
-    "intrigue",
-    "just-red",
-    "neon-pink-dark",
-    "neon",
-    "orange-dark",
-    "slick-red",
-    "this-ones-good",
-    "tomorrow-night-eighties",
-    "void",
-    "water-fire",
-    "storm",
-    "gold-hunter",
-    "sierra",
-    "capitane",
-    "bigsur",
-    "monterey",
-    "nord",
-    "MonokaiPro",
-    "Programiz",
-    "autumn-mech",
-    "catppuccin",
-  ];
-
+  readonly THEMES = ["vesper", "mokka", "ochra", "orbita", "bahamata", "umbra"];
+  readonly DEFAULT_THEME = this.THEMES.indexOf("bahamata");
+  themeNr = this.DEFAULT_THEME;
   themeCssLink = document.querySelector<HTMLLinkElement>(
     'link[rel="stylesheet"][href$="/styles/colors.css"]',
   );
 
   constructor(config: { nr?: number }) {
-    this.themeNr = config.nr ?? 0;
-    this.addListener();
-    this.addListenerMouseLeave();
-    this.changeTheme(this.THEMES[this.themeNr] ?? this.THEMES[0]!);
+    const namedTheme = new URL(window.location.href).searchParams.get("theme");
+    const namedIndex = this.THEMES.indexOf(namedTheme ?? "");
+    // Old default links used index zero. Explicit choices now use a named URL parameter.
+    const requestedTheme =
+      namedIndex !== -1
+        ? namedIndex
+        : config.nr === 0
+          ? this.DEFAULT_THEME
+          : (config.nr ?? this.DEFAULT_THEME);
+    this.themeNr =
+      Number.isInteger(requestedTheme) && this.THEMES[requestedTheme]
+        ? requestedTheme
+        : this.DEFAULT_THEME;
+    this.changeTheme(this.THEMES[this.themeNr]!);
   }
 
   changeTheme(nameTheme: string) {
+    document.documentElement.dataset["theme"] = nameTheme;
     this.themeCssLink!.href = new URL(
       `../themes/${nameTheme}.css`,
       this.themeCssLink!.href,
@@ -62,60 +34,33 @@ export default class ThemeChanger {
   html() {
     const root = document.createElement("div");
     root.classList.add("prompt");
-
-    const themeChangerContainer = document.createElement("div");
-    themeChangerContainer.classList.add("theme-changer-container");
-    const h1 = document.createElement("h1");
-    h1.innerHTML = "theme:";
-    this.themeChanger.classList.add("theme-changer");
-
-    this.THEMES.forEach((theme) => {
-      const themeItem = new ThemeItem(theme);
-      this.themeChanger.appendChild(themeItem.html());
+    const container = document.createElement("div");
+    container.classList.add("theme-changer-container");
+    const label = document.createElement("label");
+    label.htmlFor = "theme-select";
+    label.textContent = "theme:";
+    const select = document.createElement("select");
+    select.id = "theme-select";
+    select.name = "theme";
+    select.classList.add("theme-changer");
+    this.THEMES.forEach((theme, index) => {
+      const option = document.createElement("option");
+      option.value = theme;
+      option.textContent = theme;
+      option.selected = index === this.themeNr;
+      select.appendChild(option);
     });
-
-    themeChangerContainer.appendChild(h1);
-    themeChangerContainer.appendChild(this.themeChanger);
-    // Change id for selected theme div
-    (this.themeChanger.childNodes[this.selectedThemeId] as HTMLElement).id =
-      "selected";
-    // Insert selected theme on the top
-    this.themeChanger.insertBefore(
-      this.themeChanger.childNodes[this.selectedThemeId]!,
-      this.themeChanger.firstChild,
-    );
-
-    root.appendChild(themeChangerContainer);
+    select.addEventListener("change", () => {
+      this.themeNr = select.selectedIndex;
+      this.changeTheme(select.value);
+      const url = new URL(window.location.href);
+      url.searchParams.set("theme", select.value);
+      window.history.replaceState(window.history.state, "", url);
+    });
+    container.append(label, select);
+    root.appendChild(container);
     return root;
   }
 
-  addListener = () => {
-    document.addEventListener("click", (e) => {
-      const target = e.target as HTMLInputElement;
-      if (target.name === "theme-radio") {
-        // print index of clicked element
-        this.themeNr = this.THEMES.indexOf(target.id);
-        this.changeTheme(target.id);
-
-        const selectedTheme = document.querySelector("#selected");
-        selectedTheme?.removeAttribute("id");
-        target.parentElement!.id = "selected";
-      }
-    });
-  };
-
-  addListenerMouseLeave = () => {
-    this.themeChanger.addEventListener("mouseleave", (event) => {
-      const selectedTheme = document.querySelector("#selected");
-      const target = event.currentTarget as HTMLElement;
-      if (selectedTheme) target.insertBefore(selectedTheme, target.firstChild);
-      target.scrollTop = 0;
-    });
-  };
-
-  export = () => {
-    return {
-      nr: this.themeNr,
-    };
-  };
+  export = () => ({ nr: this.themeNr });
 }

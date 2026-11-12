@@ -18,6 +18,7 @@ const getExportUrl = async () => {
     ? new URL("../", window.location.href)
     : new URL(window.location.href);
   url.searchParams.set("t", await encodeConfig(t.export()));
+  url.searchParams.set("theme", t.themeChanger.THEMES[t.themeChanger.themeNr]!);
   url.searchParams.delete("e");
   return url.href;
 };

@@ -1,0 +1,57 @@
+/* Bahamata: warm daylight neutrals and vivid nocturnal accents. */
+:root {
+  color-scheme: light;
+  --background: #ede9df;
+  --foreground: #453b30;
+  --cursor: #24638a;
+  --surface: #e3dfd5;
+  --selection: #d8cdb7;
+  --color0: #e3dfd5;
+  --color1: #5b2c24;
+  --color2: #24638a;
+  --color3: #5b2c24;
+  --color4: #24638a;
+  --color5: #5b2c24;
+  --color6: #453b30;
+  --color7: #453b30;
+  --color8: #78684f;
+  --color9: #5b2c24;
+  --color10: #24638a;
+  --color11: #5b2c24;
+  --color12: #5b2c24;
+  --color13: #5b2c24;
+  --color14: #24638a;
+  --color15: #453b30;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #010203;
+    --foreground: #e0c995;
+    --cursor: #87c5eb;
+    --surface: #140e0d;
+    --selection: #2b1c19;
+    --color0: #140e0d;
+    --color1: #a76a55;
+    --color2: #87c5eb;
+    --color3: #e4c36f;
+    --color4: #87c5eb;
+    --color5: #e4c36f;
+    --color6: #e0c995;
+    --color7: #e0c995;
+    --color8: #945747;
+    --color9: #b47d68;
+    --color10: #87c5eb;
+    --color11: #e4c36f;
+    --color12: #6e382d;
+    --color13: #6e382d;
+    --color14: #87c5eb;
+    --color15: #f0dba7;
+  }
+}
+
+:root[data-theme="bahamata"] a:hover,
+:root[data-theme="bahamata"] .theme-changer:focus-visible {
+  color: var(--color4);
+}

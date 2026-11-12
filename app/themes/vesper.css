@@ -1,0 +1,53 @@
+:root {
+  color-scheme: light;
+  --background: #f7f7fb;
+  --foreground: #282a36;
+  --cursor: #7040b0;
+  --surface: #ededf5;
+  --selection: #e4d9f5;
+
+  --color0: #ededf5;
+  --color1: #7040b0;
+  --color2: #7040b0;
+  --color3: #786000;
+  --color4: #147386;
+  --color5: #7040b0;
+  --color6: #383a49;
+  --color7: #383a49;
+  --color8: #696d87;
+  --color9: #a92b76;
+  --color10: #7040b0;
+  --color11: #9c4c16;
+  --color12: #7040b0;
+  --color13: #a92b76;
+  --color14: #147386;
+  --color15: #282a36;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #15161c;
+    --foreground: #f8f8f2;
+    --cursor: #bd93f9;
+    --surface: #111218;
+    --selection: #44475a;
+
+    --color0: #111218;
+    --color1: #bd93f9;
+    --color2: #bd93f9;
+    --color3: #f1fa8c;
+    --color4: #8be9fd;
+    --color5: #bd93f9;
+    --color6: #f8f8f2;
+    --color7: #f8f8f2;
+    --color8: #6272a4;
+    --color9: #ff79c6;
+    --color10: #bd93f9;
+    --color11: #ffb86c;
+    --color12: #bd93f9;
+    --color13: #ff79c6;
+    --color14: #8be9fd;
+    --color15: #ffffff;
+  }
+}

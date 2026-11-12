@@ -1,0 +1,52 @@
+/* Palette inspiration: https://catppuccin.com/palette/ (Latte / Mocha) */
+:root {
+  color-scheme: light;
+  --background: #eff1f5;
+  --foreground: #4c4f69;
+  --cursor: #8839ef;
+  --surface: #e6e9ef;
+  --selection: #ccd0da;
+  --color0: #e6e9ef;
+  --color1: #8839ef;
+  --color2: #40a02b;
+  --color3: #df8e1d;
+  --color4: #1e66f5;
+  --color5: #8839ef;
+  --color6: #4c4f69;
+  --color7: #4c4f69;
+  --color8: #6c6f85;
+  --color9: #d20f39;
+  --color10: #40a02b;
+  --color11: #fe640b;
+  --color12: #8839ef;
+  --color13: #d20f39;
+  --color14: #179299;
+  --color15: #4c4f69;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #0e0e17;
+    --foreground: #cdd6f4;
+    --cursor: #cba6f7;
+    --surface: #0a0a12;
+    --selection: #45475a;
+    --color0: #0a0a12;
+    --color1: #cba6f7;
+    --color2: #a6e3a1;
+    --color3: #f9e2af;
+    --color4: #89b4fa;
+    --color5: #cba6f7;
+    --color6: #cdd6f4;
+    --color7: #cdd6f4;
+    --color8: #9399b2;
+    --color9: #f38ba8;
+    --color10: #a6e3a1;
+    --color11: #fab387;
+    --color12: #cba6f7;
+    --color13: #f38ba8;
+    --color14: #94e2d5;
+    --color15: #cdd6f4;
+  }
+}

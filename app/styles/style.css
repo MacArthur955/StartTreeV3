@@ -229,6 +229,7 @@ html {
 
 body {
   background: var(--background);
+  color: var(--foreground);
   margin: 0;
   padding: 0;
 }
@@ -367,7 +368,8 @@ body {
 .editToolbar {
   align-items: center;
   justify-content: center;
-  background: var(--color12);
+  background: var(--surface);
+  border: 1px solid var(--color12);
   z-index: 100;
   display: flex;
 }
@@ -525,21 +527,35 @@ input {
 
 .theme-changer-container {
   display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
+
+.theme-changer-container > label {
+  color: var(--color9);
+}
+
 .theme-changer {
-  margin: 8px 16px; /* top/bottom || left/right */
-  display: inline-block;
+  width: 302px;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--color12);
   font-family: var(--font);
   font-size: 1rem;
-  color: var(--color6);
-  background-color: var(--background);
-  border-width: 1px;
-  border-color: var(--color12);
-  border-style: solid;
-  height: 35px;
-  width: 302px;
-  overflow: hidden;
-  transition: 0.2s ease-in-out;
+  color: var(--foreground);
+  background: var(--background);
+  cursor: pointer;
+}
+
+.theme-changer option {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.theme-changer:focus-visible {
+  outline: 2px solid var(--cursor);
+  outline-offset: 2px;
 }
 
 /* Some scroll customization */
@@ -556,25 +572,4 @@ input {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color6);
-}
-.theme-changer:hover {
-  height: 200px;
-  overflow-y: scroll;
-}
-/* ---------------------- */
-
-.theme-changer input {
-  /* hide radio-button */
-  border: none;
-  appearance: none;
-  -webkit-appearance: none;
-  position: absolute;
-}
-.theme-changer label {
-  cursor: pointer;
-  display: block;
-  padding: 4px;
-}
-.theme-changer label:hover {
-  color: var(--color12);
 }
