@@ -1,0 +1,52 @@
+/* Palette inspiration: https://github.com/primer/github-vscode-theme */
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #1f2328;
+  --cursor: #8250df;
+  --surface: #f6f8fa;
+  --selection: #ddf4ff;
+  --color0: #f6f8fa;
+  --color1: #8250df;
+  --color2: #0969da;
+  --color3: #9a6700;
+  --color4: #0969da;
+  --color5: #8250df;
+  --color6: #1f2328;
+  --color7: #1f2328;
+  --color8: #59636e;
+  --color9: #cf222e;
+  --color10: #0969da;
+  --color11: #bc4c00;
+  --color12: #8250df;
+  --color13: #cf222e;
+  --color14: #1b7c83;
+  --color15: #1f2328;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #0a0d12;
+    --foreground: #e6edf3;
+    --cursor: #d2a8ff;
+    --surface: #12171e;
+    --selection: #263951;
+    --color0: #12171e;
+    --color1: #d2a8ff;
+    --color2: #79c0ff;
+    --color3: #d29922;
+    --color4: #79c0ff;
+    --color5: #d2a8ff;
+    --color6: #e6edf3;
+    --color7: #e6edf3;
+    --color8: #8b949e;
+    --color9: #ff7b72;
+    --color10: #79c0ff;
+    --color11: #ffa657;
+    --color12: #d2a8ff;
+    --color13: #ff7b72;
+    --color14: #a5d6ff;
+    --color15: #e6edf3;
+  }
+}

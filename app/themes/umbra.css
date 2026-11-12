@@ -1,0 +1,53 @@
+/* Umbra: complementary blue-green and copper-orange harmony.
+   Color model inspiration: https://paletton.com/ */
+:root {
+  color-scheme: light;
+  --background: #f1ebe3;
+  --foreground: #43362e;
+  --cursor: #1c5c60;
+  --surface: #e6ddd2;
+  --selection: #d8cbbd;
+  --color0: #e6ddd2;
+  --color1: #784321;
+  --color2: #1c5c60;
+  --color3: #784321;
+  --color4: #1c5c60;
+  --color5: #784321;
+  --color6: #43362e;
+  --color7: #43362e;
+  --color8: #74685e;
+  --color9: #784321;
+  --color10: #1c5c60;
+  --color11: #784321;
+  --color12: #1c5c60;
+  --color13: #784321;
+  --color14: #1c5c60;
+  --color15: #43362e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #030405;
+    --foreground: #d9c8bd;
+    --cursor: #78c8c5;
+    --surface: #090c0d;
+    --selection: #172526;
+    --color0: #090c0d;
+    --color1: #d99c78;
+    --color2: #78c8c5;
+    --color3: #d99c78;
+    --color4: #78c8c5;
+    --color5: #d99c78;
+    --color6: #d9c8bd;
+    --color7: #d9c8bd;
+    --color8: #8e9c9b;
+    --color9: #d99c78;
+    --color10: #78c8c5;
+    --color11: #d99c78;
+    --color12: #78c8c5;
+    --color13: #d99c78;
+    --color14: #78c8c5;
+    --color15: #d9c8bd;
+  }
+}

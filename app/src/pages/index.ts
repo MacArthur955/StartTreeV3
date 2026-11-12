@@ -11,5 +11,8 @@ if (new URLSearchParams(window.location.search).has("t")) {
     (response) => response.json(),
   );
   const encoded = await encodeConfig(exampleData);
-  document.location.replace(`./?t=${encoded}&e=1`);
+  const url = new URL(window.location.href);
+  url.searchParams.set("t", encoded);
+  url.searchParams.set("e", "1");
+  document.location.replace(url.href);
 }
